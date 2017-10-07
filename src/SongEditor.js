@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Parser, Chord } from 'react-chord-parser';
-import { fingeringForChord } from "./chordMap";
+import { fingeringForChord } from './chordMap';
 
 class SongEditor extends Component {
 
