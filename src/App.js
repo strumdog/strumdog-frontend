@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router,
+    Route,
+    Link,
+    IndexRoute,
+    browserHistory } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 import SongEditor from './SongEditor';
