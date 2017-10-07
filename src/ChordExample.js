@@ -8,7 +8,7 @@ const input = [
     'Mother Mary comes to me,               ',
     '  G              D       C          G  ',
     'Speaking words of wisdom, let it be.',
-];
+].join('\n');
  
 const parser = new Parser(input);
  
@@ -23,15 +23,15 @@ class MyComponent extends Component {
     diagramSupplier = (chord) => {
         switch (chord) {
             case "C":
-                return "x32010";
+                return "xxx3";
             case "D":
-                return "xx0232";
+                return "2225";
             case "Em":
-                return "022000";
+                return "x432";
             case "G":
-                return "320033";
+                return "x232";
             default:
-                return "xxxxxx";
+                return "xxxx";
         }
     };
     
@@ -49,7 +49,8 @@ class MyComponent extends Component {
             // You can be sure that input text properly sanitized, 
             // actually no html tags are allowed, if any – they will be deleted. 
             // You can get more control using parser.wrap(callback) method 
-            <Chordify color="#aa4444" input={input}/>
+            // <Chordify color="#aa4444" input={input}/>
+            this.renderUniqueChords()
         )
     }
 }
