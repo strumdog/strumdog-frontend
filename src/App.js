@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SongEditor from './SongEditor';
-
 import MockClient from './client/MockClient';
-const client = new MockClient();
+import RealClient from './client/RealClient';
+import config from './config';
+
+let client;
+if (config.mock) {
+    client = new MockClient();
+} else {
+    client = new RealClient(config.baseUri);
+}
 
 class App extends Component {
   render() {
