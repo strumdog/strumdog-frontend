@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
     "react-dom": "^16.0.0",
