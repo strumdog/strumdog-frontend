@@ -19,8 +19,8 @@ class RealClient extends Client {
         }
     }
 
-    createSong (title, songText) {
-        const data = { title, songText };
+    createSong (title, lyrics, chords) {
+        const data = { title, lyrics, chords };
 
         return fetch(`${this.baseUri}/song`, {
             method: 'POST',
