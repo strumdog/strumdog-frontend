@@ -18,7 +18,7 @@ const uniques = parser.unique(); // => ["C", "D", "Em", "G"];
 // If you want to exclude word from parsing  
 // just precede it with "\" character, e.g. "What \A Day" 
  
-class MyComponent extends Component {
+class ChordExample extends Component {
  
     diagramSupplier = (chord) => {
         switch (chord) {
@@ -55,4 +55,4 @@ class MyComponent extends Component {
     }
 }
 
-export default MyComponent;
+export default ChordExample;
