@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Parser, Chord, Chordify} from "react-chord-parser";
- 
+import { Parser, Chord } from "react-chord-parser";
+
 const input = [
     'G                D                   ',
     'When I find myself in times of trouble,',
@@ -9,17 +9,17 @@ const input = [
     '  G              D       C          G  ',
     'Speaking words of wisdom, let it be.',
 ].join('\n');
- 
+
 const parser = new Parser(input);
- 
-// Return an array of unique chords found in the string 
-const uniques = parser.unique(); // => ["C", "D", "Em", "G"]; 
- 
-// If you want to exclude word from parsing  
-// just precede it with "\" character, e.g. "What \A Day" 
- 
+
+// Return an array of unique chords found in the string
+const uniques = parser.unique(); // => ["C", "D", "Em", "G"];
+
+// If you want to exclude word from parsing
+// just precede it with "\" character, e.g. "What \A Day"
+
 class ChordExample extends Component {
- 
+
     diagramSupplier = (chord) => {
         switch (chord) {
             case "C":
@@ -34,21 +34,21 @@ class ChordExample extends Component {
                 return "xxxx";
         }
     };
-    
-    // this will render all unique chords from the input as vector image 
+
+    // this will render all unique chords from the input as vector image
     renderUniqueChords() {
-        return uniques.map(chord => <Chord 
-                                        key={chord} 
-                                        name={chord} 
+        return uniques.map(chord => <Chord
+                                        key={chord}
+                                        name={chord}
                                         diagram={this.diagramSupplier(chord)}/>);
     }
-    
+
     render() {
         return (
-            // Just emphasize chords found in the input with some color. 
-            // You can be sure that input text properly sanitized, 
-            // actually no html tags are allowed, if any – they will be deleted. 
-            // You can get more control using parser.wrap(callback) method 
+            // Just emphasize chords found in the input with some color.
+            // You can be sure that input text properly sanitized,
+            // actually no html tags are allowed, if any – they will be deleted.
+            // You can get more control using parser.wrap(callback) method
             // <Chordify color="#aa4444" input={input}/>
             this.renderUniqueChords()
         )
