@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ChordExample from './ChordExample';
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 
 class App extends Component {
   render() {
