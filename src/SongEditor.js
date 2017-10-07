@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Parser, Chord } from 'react-chord-parser';
+import PropTypes from 'prop-types';
 import { fingeringForChord } from './chordMap';
 
 class SongEditor extends Component {
@@ -29,7 +30,19 @@ class SongEditor extends Component {
         const parser = new Parser(songText);
         const uniqueChords = parser.unique();
 
-        this.setState({ songText, uniqueChords });
+        const song = {
+            songText,
+            title: 'My Amazing Song',
+        };
+
+        this.props.client.createSong(song)
+            .then(id => {
+                console.log(`Song created: ${id}`);
+                this.setState({ songText, uniqueChords });
+            }).catch(e => {
+                alert(e.message);
+                console.error(e);
+            });
     }
 
     render() {
@@ -44,5 +57,9 @@ class SongEditor extends Component {
         )
     }
 }
+
+SongEditor.propTypes = {
+    client: PropTypes.object.isRequired,
+};
 
 export default SongEditor;
