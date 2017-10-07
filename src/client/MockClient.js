@@ -8,6 +8,8 @@ class MockClient extends Client {
 
         this.idSequence = new IdSequence();
         this.storage = new Map();
+
+        console.info('Using mock client');
     }
 
     createSong (title, songText) {
