@@ -12,10 +12,10 @@ class MockClient extends Client {
         console.info('Using mock client');
     }
 
-    createSong (title, songText) {
+    createSong (title, lyrics, chords) {
         const id = this.idSequence.getNext();
 
-        this.storage.set(id, { title, songText });
+        this.storage.set(id, { title, lyrics, chords });
 
         return Promise.resolve(id);
     }
