@@ -11,20 +11,21 @@ class Autoscroller extends Component {
 
     setScrollRate (pixelsPerSecond) {
         const intervalMillis = 100.;
-        const pixelsPerStep = pixelsPerSecond / intervalMillis;
+        const pixelsPerStep = pixelsPerSecond / 1000. * intervalMillis;
 
         this.cancel();
 
         this.interval = setInterval(() => {
-            Scroll.animateScroll.scrollMore(pixelsPerStep);
+            console.log(pixelsPerStep)
+            window.scrollBy(0, pixelsPerStep);
         }, intervalMillis);
     }
 
     render () {
         return (
             <div className="autoscroller">
-                <button onClick={ () => this.setScrollRate(10) }>Slow</button>
-                <button onClick={ () => this.setScrollRate(50) }>Fast</button>
+                <button onClick={ () => this.setScrollRate(35) }>Slow</button>
+                <button onClick={ () => this.setScrollRate(100) }>Fast</button>
                 <button onClick={ () => this.cancel() }>Stop</button>
             </div>
         );
@@ -32,13 +33,3 @@ class Autoscroller extends Component {
 }
 
 export default Autoscroller;
-
-// function scrollToTop(scrollDuration) {
-//     var scrollStep = -window.scrollY / (scrollDuration / 15),
-//         scrollInterval = setInterval(function(){
-//         if ( window.scrollY != 0 ) {
-//             window.scrollBy( 0, scrollStep );
-//         }
-//         else clearInterval(scrollInterval); 
-//     },15);
-// }
