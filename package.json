@@ -10,7 +10,6 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14"
   },
-  "homepage": "http://whois.paulmelnikow.com/extra/strumdog/",
   "scripts": {
     "start:local": "REACT_APP_BASE_URI=http://localhost:2999 react-scripts start",
     "start:production": "REACT_APP_BASE_URI=https://strumdog.herokuapp.com react-scripts start",
@@ -18,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "REACT_APP_BASE_URI=https://strumdog.herokuapp.com npm run build && urj build/ s3://whois.paulmelnikow.com/extra/strumdog/"
+    "deploy": "REACT_APP_BASE_URI=https://strumdog.herokuapp.com npm run build && urj build/ s3://strum.dog"
   },
   "devDependencies": {
     "urj": "^1.1.3"
