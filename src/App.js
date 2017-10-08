@@ -37,8 +37,8 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <Switch>
-            <Route exact path='/' component={SongEditorWrapper}/>
-            <Route path='view' component={SongView}/>
+            <Route exact path="/" component={SongEditorWrapper}/>
+            <Route path="/view" component={SongView}/>
         </Switch>
       </div>
     );
