@@ -3,6 +3,7 @@ import { Parser, Chord } from 'react-chord-parser';
 import { fingeringForChord } from './chordMap';
 import groupBy from 'lodash.groupby';
 import './SongViewer.css';
+import PropTypes from 'prop-types';
 
 class SongViewer extends Component {
 
@@ -38,10 +39,9 @@ class SongViewer extends Component {
                     uniqueChords: new Parser(chordsString).unique()
                 });
             }).catch(e => {
-                alert(e.message);
                 console.error(e);
+                props.errorManager.addError(e);
             })
-
     }
 
     static groupLyricLines (lyrics, chords) {
@@ -88,7 +88,6 @@ class SongViewer extends Component {
         // like this to work correctly:
         // C Am F G
         if (! lyrics) {
-            console.log('no lyrics!')
             chords = chords.map(chord => ({
                 chord: chord.chord,
                 position: 1.4 /* A little extra space */ * (chord.position - 1) + 1,
@@ -114,5 +113,10 @@ class SongViewer extends Component {
         )
     }
 }
+
+SongViewer.propTypes = {
+    client: PropTypes.object.isRequired,
+    errorManager: PropTypes.object.isRequired,
+};
 
 export default SongViewer;

@@ -6,7 +6,9 @@ import SongEditor from './SongEditor';
 import MockClient from './client/MockClient';
 import RealClient from './client/RealClient';
 import config from './config';
-import SongViewer from './SongViewer.js'
+import SongViewer from './SongViewer';
+import ErrorManager from './ErrorManager';
+import Errors from './Errors';
 
 let client;
 if (config.mock) {
@@ -15,15 +17,15 @@ if (config.mock) {
     client = new RealClient(config.baseUri);
 }
 
+const errorManager = new ErrorManager();
+
 const SongEditorWrapper = () => (
-    <SongEditor client={ client }/>
+    <SongEditor client={ client } errorManager={ errorManager } />
 );
 
-const SongView = (params) => {
-  return (
-      <SongViewer match={params.match} client={client} />
-  );
-};
+const SongViewerWrapper = (params) => (
+    <SongViewer match={ params.match } client={ client } errorManager={ errorManager } />
+);
 
 
 class App extends Component {
@@ -34,12 +36,13 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
+        <Errors manager={ errorManager } />
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <Switch>
-            <Route exact path="/" component={SongEditorWrapper}/>
-            <Route path="/song/:id" component={SongView}/>
+            <Route exact path="/" component={ SongEditorWrapper }/>
+            <Route path="/song/:id" component={ SongViewerWrapper }/>
         </Switch>
       </div>
     );
