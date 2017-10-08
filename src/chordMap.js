@@ -160,5 +160,5 @@ export const fingeringForChord = (chord) => {
     if(fingers){
         return fingers;
     }
-    return "xxxx"
+    return "xxxx";
 };
