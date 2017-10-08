@@ -23,7 +23,7 @@ export const parseInputText = text => {
 
     for (let i = 0; i < inputLines.length; i += 2) {
         const chordLine = inputLines[i];
-        const lyricLine = inputLines[i + 1].trim();
+        const lyricLine = (inputLines[i + 1] || '').trim();
 
         lyrics.push(lyricLine);
 
