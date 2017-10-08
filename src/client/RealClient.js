@@ -47,6 +47,21 @@ class RealClient extends Client {
             .then(response => this.constructor.checkResponseStatus(response, 'Song not found'))
             .then(response => response.json());
     }
+
+    cleanLyrics (lyrics) {
+        const data = { song_text: lyrics };
+
+        return fetch(`${this.baseUri}/cleanup_text`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(this.constructor.checkResponseStatus)
+            .then(response => response.json())
+            .then(json => json.clenaed_text);
+    }
 }
 
 export default RealClient;
