@@ -1,4 +1,5 @@
 export const fingeringForChord = (chord) => {
+    const tabs = {
         "G#7sus":"1324",
         "G#sus":"1344",
         "G#9":"3323",
@@ -154,4 +155,10 @@ export const fingeringForChord = (chord) => {
         "D#9":"0111",
         "D#sus":"3346",
         "D#7sus":"3344"
+    };
+    const fingers = tabs[chord];
+    if(fingers){
+        return fingers;
+    }
+    return "xxxx"
 };
