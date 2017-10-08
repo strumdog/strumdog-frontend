@@ -44,7 +44,7 @@ class SongViewer extends Component {
 
     }
 
-    static groupedLines (lyrics, chords) {
+    static groupLyricLines (lyrics, chords) {
         const groupedChords = groupBy(chords, info => info.line - 1);
 
         const result = [];
@@ -83,18 +83,33 @@ class SongViewer extends Component {
         );
     }
 
+    renderLyricLine ({ lyrics, chords }, key) {
+        // If a line has only chords, space them out a bit. This allows lines
+        // like this to work correctly:
+        // C Am F G
+        if (! lyrics) {
+            console.log('no lyrics!')
+            chords = chords.map(chord => ({
+                chord: chord.chord,
+                position: 1.4 /* A little extra space */ * (chord.position - 1) + 1,
+            }));
+        }
+
+        return (
+            <div className="lyricLine" key={ key }>
+                { this.renderChordContainer(chords) }
+                <div className="lyric">{ lyrics }</div>
+            </div>
+        );
+    }
+
     render() {
-        const groupedLines = this.constructor.groupedLines(this.state.lyrics, this.state.chords);
+        const lyricLines = this.constructor.groupLyricLines(this.state.lyrics, this.state.chords);
 
         return (
             <div>
-                <h1>{this.state.title}</h1>
-                { groupedLines.map((line, i) => (
-                    <div className="lyricLine" key={ i }>
-                        { this.renderChordContainer(line.chords) }
-                        <div className="lyric">{ line.lyrics }</div>
-                    </div>
-                ))}
+                <h1>{ this.state.title }</h1>
+                { lyricLines.map((line, i) => this.renderLyricLine(line, i)) }
             </div>
         )
     }
