@@ -81,7 +81,7 @@ class SongViewer extends Component {
                         style={ chordStyle(chord.position) }
                         name={ chord.chord }
                         diagram={ fingeringForChord(chord.chord) }/>
-                )) }
+                ))}
             </div>
         );
     }
@@ -110,7 +110,7 @@ class SongViewer extends Component {
 
         return (
             <div>
-                <h1>{ this.autoscroll() }</h1>
+                {this.autoscroll()}
                 <h1>{ this.state.title }</h1>
                 { lyricLines.map((line, i) => this.renderLyricLine(line, i)) }
             </div>
@@ -118,8 +118,6 @@ class SongViewer extends Component {
     }
 
     autoscroll(){
-        
-
         return (
             <div>
                 <button onClick={ this.scrolling() }>
@@ -134,11 +132,11 @@ class SongViewer extends Component {
         var scroll = Scroll.animateScroll;
 
         const options = {
-            smooth:true,
-            duration:5000,
-            delay:500
+            duration: 1500,
+            delay: 100,
+            smooth: true,
         };
-        return scroll.scrollMore(50,options);
+        return scroll.scrollToBottom(options);
     }
 }
 
