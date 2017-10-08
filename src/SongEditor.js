@@ -43,6 +43,7 @@ class SongEditor extends Component {
         return (
             <div>
                 <Col xs={6} xsOffset={3} >
+                    <h4>Copy your chord tab into the box below.</h4>
                     <form>
                         <FormGroup>
                             <ControlLabel className="pull-left">Song title</ControlLabel>

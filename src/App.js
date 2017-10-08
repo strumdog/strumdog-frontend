@@ -38,9 +38,6 @@ class App extends Component {
               <h1 className="App-title">Strumdog</h1>
           </Row>
         <Errors manager={ errorManager } />
-        <p className="App-intro">
-          Copy your chord tab into the box below.
-        </p>
         <Switch>
             <Route exact path="/" component={ SongEditorWrapper }/>
             <Route path="/song/:id" component={ SongViewerWrapper }/>
