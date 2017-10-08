@@ -6,6 +6,7 @@ import SongEditor from './SongEditor';
 import MockClient from './client/MockClient';
 import RealClient from './client/RealClient';
 import config from './config';
+import SongViewer from './SongViewer.js'
 
 let client;
 if (config.mock) {
@@ -20,7 +21,7 @@ const SongEditorWrapper = () => (
 
 const SongView = () => {
   return (
-    <h1>You are in the song view</h1>
+      <SongViewer id="101" client={client} />
   );
 };
 
