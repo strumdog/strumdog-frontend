@@ -27,6 +27,10 @@ class MockClient extends Client {
             return Promise.reject(Error(`No such song: ${id}`));
         }
     }
+
+    cleanLyrics (lyrics) {
+        return Promise.resolve(lyrics);
+    }
 }
 
 export default MockClient;
