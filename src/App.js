@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import SongEditor from './SongEditor';
@@ -13,6 +14,17 @@ if (config.mock) {
     client = new RealClient(config.baseUri);
 }
 
+const SongEditorWrapper = () => (
+    <SongEditor client={ client }/>
+);
+
+const SongView = () => {
+  return (
+    <h1>You are in the song view</h1>
+  );
+};
+
+
 class App extends Component {
   render() {
     return (
@@ -24,7 +36,10 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <SongEditor client={ client }/>
+        <Switch>
+            <Route exact path="/" component={SongEditorWrapper}/>
+            <Route path="/view" component={SongView}/>
+        </Switch>
       </div>
     );
   }
