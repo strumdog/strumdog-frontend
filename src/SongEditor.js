@@ -12,22 +12,31 @@ class SongEditor extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
+    maybeClean (lyrics, shouldClean) {
+        if (shouldClean) {
+            return this.props.client.cleanLyrics(lyrics);
+        } else {
+            return Promise.resolve(lyrics);
+        }
+    }
 
     handleUpdate() {
 
         const titleText = this.titleTextInput.value;
         const songText = this.songTextInput.value;
 
-        const parsed = parseInputText(songText);
+        this.maybeClean(songText, this.lyricsCleanerChecked)
+            .then(parseInputText)
+            .then(parsed =>
+                this.props.client.createSong(titleText, parsed.lyrics, parsed.chords)
+                    .then(id => {
 
-        this.props.client.createSong(titleText, parsed.lyrics, parsed.chords)
-            .then(id => {
-                console.log(`Song created: ${id}`);
-                // Create SongViewer component using router w/ id and client
-                this.context.router.history.push(`/song/${id}`);
-            }).catch(e => {
-                alert(e.message);
-                console.error(e);
+                console.log(this.lyricsCleanerChecked)
+                        console.log(`Song created: ${id}`);
+                        this.context.router.history.push(`/song/${id}`);
+                    }))
+            .catch(e => {
+                this.props.errorManager.addError(e);
             });
     }
 
@@ -35,20 +44,20 @@ class SongEditor extends Component {
         return (
             <div>
                 <Col xs={6} xsOffset={3} >
-                <form>
-                    <FormGroup>
-                        <ControlLabel className="pull-left">Song title</ControlLabel>
-                        <FormControl componentClass="input" inputRef= { titleTextInput => this.titleTextInput = titleTextInput } />
-                        <ControlLabel className="pull-left">Chord tab</ControlLabel>
-                        <FormControl componentClass="textarea" inputRef={ songTextInput => this.songTextInput = songTextInput } />
-                    <Row>
-                        <Checkbox inline>Use lyrics cleaner</Checkbox>
-                        <Button bsStyle="primary" bsSize="lg" onClick={ this.handleUpdate }>
-                            Create
-                        </Button>
-                    </Row>
-                    </FormGroup>
-                </form>
+                    <form>
+                        <FormGroup>
+                            <ControlLabel className="pull-left">Song title</ControlLabel>
+                            <FormControl componentClass="input" inputRef= { titleTextInput => this.titleTextInput = titleTextInput } />
+                            <ControlLabel className="pull-left">Chord tab</ControlLabel>
+                            <FormControl componentClass="textarea" inputRef={ songTextInput => this.songTextInput = songTextInput } />
+                            <Row>
+                                <Checkbox inline inputRef={ ref => this.lyricsCleanerChecked = ref }>Use lyrics cleaner</Checkbox>
+                                <Button bsStyle="primary" bsSize="lg" onClick={ this.handleUpdate }>
+                                    Create
+                                </Button>
+                            </Row>
+                        </FormGroup>
+                    </form>
                 </Col>
             </div>
         )
