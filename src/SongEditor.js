@@ -26,6 +26,7 @@ class SongEditor extends Component {
             .then(id => {
                 console.log(`Song created: ${id}`);
                 // Create SongViewer component using router w/ id and client
+                this.context.router.history.push(`/song/${id}`);
             }).catch(e => {
                 alert(e.message);
                 console.error(e);
@@ -46,6 +47,12 @@ class SongEditor extends Component {
 
 SongEditor.propTypes = {
     client: PropTypes.object.isRequired,
+};
+
+SongEditor.contextTypes = {
+  router: PropTypes.shape({
+    history: PropTypes.object.isRequired,
+  }),
 };
 
 export default SongEditor;
