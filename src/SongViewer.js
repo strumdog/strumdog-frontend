@@ -60,7 +60,8 @@ class SongViewer extends Component {
     }
 
     renderChordContainer (chords) {
-        const characterWidth = 0.6 * 36;
+        const pointSize = 36;
+        const characterWidth = 0.6 /* Roboto Mono height to width ratio */ * pointSize;
 
         const chordStyle = left => ({
             left: characterWidth * (left - 1) - 18 /* about the left margin of the tab */,
