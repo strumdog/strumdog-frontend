@@ -51,7 +51,7 @@ class RealClient extends Client {
     cleanLyrics (lyrics) {
         const data = { song_text: lyrics };
 
-        return fetch(`${this.baseUri}/cleanup_text`, {
+        return fetch(`${this.baseUri}/songs/cleanup_text`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -60,7 +60,7 @@ class RealClient extends Client {
         })
             .then(this.constructor.checkResponseStatus)
             .then(response => response.json())
-            .then(json => json.clenaed_text);
+            .then(json => json.cleaned_text);
     }
 }
 
