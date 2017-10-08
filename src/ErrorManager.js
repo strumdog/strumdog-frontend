@@ -10,8 +10,18 @@ class ErrorManager {
         this.emit('added', error);
     }
 
+    popErrors() {
+        var E = [];
+        var top = this._errors.length;
+        for (var i = top - 1; i >= 0; i--) {
+            E.push(this._errors.pop());
+        }
+        return E;
+    }
+
     getErrors () {
-        return this._errors.slice();
+        var err = this.popErrors();
+        return err.slice();
     }
 }
 
