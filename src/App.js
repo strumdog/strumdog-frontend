@@ -19,9 +19,9 @@ const SongEditorWrapper = () => (
     <SongEditor client={ client }/>
 );
 
-const SongView = () => {
+const SongView = (params) => {
   return (
-      <SongViewer id="101" client={client} />
+      <SongViewer match={params.match} client={client} />
   );
 };
 
@@ -39,7 +39,7 @@ class App extends Component {
         </p>
         <Switch>
             <Route exact path="/" component={SongEditorWrapper}/>
-            <Route path="/view" component={SongView}/>
+            <Route path="/song/:id" component={SongView}/>
         </Switch>
       </div>
     );
