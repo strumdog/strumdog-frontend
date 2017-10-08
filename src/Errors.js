@@ -11,8 +11,8 @@ class Errors extends Component {
     render () {
         return (
             <ul>
-                { this.props.manager.getErrors().map(e => (
-                    <li>{ e.message }</li>
+                { this.props.manager.getErrors().map((e, i) => (
+                    <li key={ i }>{ e.message }</li>
                 ))}
             </ul>
         );

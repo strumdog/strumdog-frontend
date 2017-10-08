@@ -25,11 +25,9 @@ class SongEditor extends Component {
         this.props.client.createSong(song.title, song.lyrics, song.chords)
             .then(id => {
                 console.log(`Song created: ${id}`);
-                // Create SongViewer component using router w/ id and client
                 this.context.router.history.push(`/song/${id}`);
             }).catch(e => {
-                alert(e.message);
-                console.error(e);
+                this.props.errorManager.addError(e);
             });
     }
 
