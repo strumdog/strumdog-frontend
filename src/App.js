@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import logo from './SD-logo-shape.svg';
+import logo from './SD-logo-shape-white.svg';
 import './App.css';
 import SongEditor from './SongEditor';
 import MockClient from './client/MockClient';
