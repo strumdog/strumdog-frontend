@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Parser, Chord } from 'react-chord-parser';
-import PropTypes from 'prop-types';
 import { fingeringForChord } from './chordMap';
 
 class SongViewer extends Component {
@@ -9,6 +8,7 @@ class SongViewer extends Component {
         super(props);
 
         this.state = {
+            title: '',
             lyrics: [],
             chords: [],
             uniqueChords: [],
@@ -16,32 +16,30 @@ class SongViewer extends Component {
     }
 
     componentDidMount() {
-        getSongAndChords(this.props);
+        this.getSongAndChords(this.props);
     }
 
-    componentWillRecieveProps(nextProps) {
-        getSongAndChords(nextProps)
+    componentWillReceiveProps(nextProps) {
+        this.getSongAndChords(nextProps)
     }
 
     getSongAndChords(props) {
 
-        props.client.getSong(props.id)
+        props.client.getSong(Number(props.id))
             .then(song => {
-                this.state.title  = song.title;
-                this.state.lyrics = song.lyrics;
-                this.state.chords = song.chords;
-                this.state.uniqueChords = new Parser(song.chords).unique();
+                console.log(JSON.stringify(song));
+                const chordsString = song.chords.map(info => info.chord).join(' ');
+                this.setState({
+                    title: song.title,
+                    lyrics: song.lyrics,
+                    chords: song.chords,
+                    uniqueChords: new Parser(chordsString).unique()
+                });
             }).catch(e => {
                 alert(e.message);
                 console.error(e);
             })
 
-        return this.state.uniqueChords.map(chord => (
-            <Chord
-                key={ chord }
-                name={ chord }
-                diagram={ fingeringForChord(chord) }/>
-        ));
     }
 
     render() {
@@ -53,7 +51,7 @@ class SongViewer extends Component {
                             key={ chord }
                             name={ chord }
                             diagram={ fingeringForChord(chord) }/>
-                ));}
+                ))}
             </div>
         )
     }

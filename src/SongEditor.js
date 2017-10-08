@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ChordParser from './chordParser.js'
+import { parseInputText } from './chordParser.js'
 
 class SongEditor extends Component {
 
@@ -14,15 +14,15 @@ class SongEditor extends Component {
     handleUpdate() {
         const songText = this.songTextInput.value;
 
-        const parsed = ChordParser.parseInputText(songText);
+        const parsed = parseInputText(songText);
 
         const song = {
+            title: 'My Amazing Song',
             lyrics: parsed.lyrics,
             chords: parsed.chords,
-            title: 'My Amazing Song',
         };
 
-        this.props.client.createSong(song)
+        this.props.client.createSong(song.title, song.lyrics, song.chords)
             .then(id => {
                 console.log(`Song created: ${id}`);
                 // Create SongViewer component using router w/ id and client
