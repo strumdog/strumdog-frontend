@@ -2,7 +2,6 @@
   "name": "uke-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://whois.paulmelnikow.com/extra/uke",
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
@@ -16,7 +15,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && urj build/ s3://whois.paulmelnikow.com/extra/uke/"
+    "deploy": "npm run build && urj build/ s3://strum.dog"
   },
   "devDependencies": {
     "urj": "^1.1.3"
