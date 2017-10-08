@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+.lyricLine {
+  position: relative;
+  margin: 36px;
+}
+
+.chordContainer {
+  height: 88px;
+}
+
+.lyric {
+  font-family: 'Roboto Mono', monospace;
+  clear: both;
+  text-align: left;
+  font-size: 36px;
+}
+
