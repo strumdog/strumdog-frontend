@@ -12,27 +12,29 @@ class RealClient extends Client {
     }
 
     static checkResponseStatus (response) {
-        if (response.statusCode === 200) {
+        if (response.status === 200) {
             return response.json();
         } else {
-            return Promise.reject(Error(`Unexpected status code: ${response.statusCode}`));
+            return Promise.reject(Error(`Unexpected status code: ${response.status}`));
         }
     }
 
     createSong (title, lyrics, chords) {
         const data = { title, lyrics, chords };
 
-        return fetch(`${this.baseUri}/song`, {
+        return fetch(`${this.baseUri}/songs`, {
             method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
             .then(RealClient.checkResponseStatus)
             .then(json => json.id);
     }
 
     getSong (id) {
-        return fetch(`${this.baseUri}/song`, {
+        return fetch(`${this.baseUri}/songs/${id}`, {
             mode: 'cors',
         })
             .then(RealClient.checkResponseStatus);
