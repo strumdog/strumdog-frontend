@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { parseInputText } from './chordParser.js'
+import { Button, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap';
 
 class SongEditor extends Component {
 
@@ -10,36 +11,47 @@ class SongEditor extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
+    maybeClean (lyrics, shouldClean) {
+        if (shouldClean) {
+            return this.props.client.cleanLyrics(lyrics);
+        } else {
+            return Promise.resolve(lyrics);
+        }
+    }
 
     handleUpdate() {
+        const titleText = this.titleTextInput.value;
         const songText = this.songTextInput.value;
 
-        const parsed = parseInputText(songText);
-
-        const song = {
-            title: 'My Amazing Song',
-            lyrics: parsed.lyrics,
-            chords: parsed.chords,
-        };
-
-        this.props.client.createSong(song.title, song.lyrics, song.chords)
-            .then(id => {
-                console.log(`Song created: ${id}`);
-                // Create SongViewer component using router w/ id and client
-                this.context.router.history.push(`/song/${id}`);
-            }).catch(e => {
-                alert(e.message);
-                console.error(e);
+        this.maybeClean(songText, false)
+            .then(parseInputText)
+            .then(parsed =>
+                this.props.client.createSong(titleText, parsed.lyrics, parsed.chords)
+                    .then(id => {
+                        console.log(`Song created: ${id}`);
+                        this.context.router.history.push(`/song/${id}`);
+                    }))
+            .catch(e => {
+                this.props.errorManager.addError(e);
             });
     }
 
     render() {
         return (
             <div>
-                <textarea ref={ input => this.songTextInput = input } />
-                <button onClick={ this.handleUpdate }>
-                    Create
-                </button>
+                <Col xs={6} xsOffset={3} >
+                <form>
+                    <FormGroup>
+                        <ControlLabel className="pull-left">Song title</ControlLabel>
+                        <FormControl componentClass="input" inputRef= { titleTextInput => this.titleTextInput = titleTextInput } />
+                        <ControlLabel className="pull-left">Chord tab</ControlLabel>
+                        <FormControl componentClass="textarea" inputRef={ songTextInput => this.songTextInput = songTextInput } />
+                        <Button bsStyle="success" bsSize="lg" onClick={ this.handleUpdate }>
+                            Create
+                        </Button>
+                    </FormGroup>
+                </form>
+                </Col>
             </div>
         )
     }

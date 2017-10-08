@@ -6,6 +6,11 @@ class ErrorManager {
     }
 
     addError (error) {
+        if (error.message === 'Failed to fetch') {
+            error.message = 'An error occurred while contacting the server';
+        }
+
+        console.error(error);
         this._errors.push(error);
         this.emit('added', error);
     }
