@@ -15,9 +15,17 @@ class SongViewer extends Component {
         };
     }
 
-    getSongAndChords() {
+    componentDidMount() {
+        getSongAndChords(this.props);
+    }
 
-        this.props.client.getSong(id)
+    componentWillRecieveProps(nextProps) {
+        getSongAndChords(nextProps)
+    }
+
+    getSongAndChords(props) {
+
+        props.client.getSong(props.id)
             .then(song => {
                 this.state.title  = song.title;
                 this.state.lyrics = song.lyrics;
@@ -40,7 +48,12 @@ class SongViewer extends Component {
         return (
             <div>
                 <h1>{this.state.title}</h1>
-                { getSongAndChords(); }
+                { this.state.uniqueChords.map(chord => (
+                        <Chord
+                            key={ chord }
+                            name={ chord }
+                            diagram={ fingeringForChord(chord) }/>
+                ));}
             </div>
         )
     }
