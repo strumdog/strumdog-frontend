@@ -1,4 +1,4 @@
-e0port const fingeringForChord = (chord) => {
+export const fingeringForChord = (chord) => {
         "G#7sus":"1324",
         "G#sus":"1344",
         "G#9":"3323",
