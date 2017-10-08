@@ -11,11 +11,17 @@ class RealClient extends Client {
         console.info(`Base URI: ${baseUri}`);
     }
 
-    static checkResponseStatus (response) {
-        if (response.status === 200) {
-            return response.json();
+    static checkResponseStatus (response, notFoundMessage) {
+        notFoundMessage = notFoundMessage || 'Not found';
+
+        if (response.status >= 500) {
+            throw Error('An error occurred while contacting the server');
+        } else if (response.status === 404) {
+            throw Error(notFoundMessage);
+        } else if (response.status >= 400) {
+            throw Error('Something is wrong with the input you provided');
         } else {
-            return Promise.reject(Error(`Unexpected status code: ${response.status}`));
+            return response;
         }
     }
 
@@ -29,7 +35,8 @@ class RealClient extends Client {
                 'Content-Type': 'application/json',
             },
         })
-            .then(RealClient.checkResponseStatus)
+            .then(this.checkResponseStatus)
+            .then(response => response.json())
             .then(json => json.id);
     }
 
@@ -37,7 +44,9 @@ class RealClient extends Client {
         return fetch(`${this.baseUri}/songs/${id}`, {
             mode: 'cors',
         })
-            .then(RealClient.checkResponseStatus);
+            .then(response => this.checkResponseStatus(response, 'Song not found'))
+            .then(response => response.json())
+            .then(json => json.id);
     }
 }
 

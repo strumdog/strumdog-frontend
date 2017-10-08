@@ -39,7 +39,6 @@ class SongViewer extends Component {
                     uniqueChords: new Parser(chordsString).unique()
                 });
             }).catch(e => {
-                console.error(e);
                 props.errorManager.addError(e);
             })
     }
