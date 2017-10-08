@@ -24,8 +24,9 @@ class SongViewer extends Component {
     }
 
     getSongAndChords(props) {
+        const id = Number(props.match.params.id);
 
-        props.client.getSong(Number(props.id))
+        props.client.getSong(id)
             .then(song => {
                 console.log(JSON.stringify(song));
                 const chordsString = song.chords.map(info => info.chord).join(' ');
