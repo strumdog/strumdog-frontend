@@ -1,44 +1,31 @@
 import React, { Component } from 'react';
-import { Parser, Chord } from 'react-chord-parser';
 import PropTypes from 'prop-types';
-import { fingeringForChord } from './chordMap';
+import ChordParser from './chordParser.js'
 
 class SongEditor extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            songText: '',
-            uniqueChords: [],
-        };
-
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-    renderUniqueChords() {
-        return this.state.uniqueChords.map(chord => (
-            <Chord
-                key={ chord }
-                name={ chord }
-                diagram={ fingeringForChord(chord) }/>
-        ));
-    }
 
     handleUpdate() {
         const songText = this.songTextInput.value;
-        const parser = new Parser(songText);
-        const uniqueChords = parser.unique();
+
+        const parsed = ChordParser.parseInputText(songText);
 
         const song = {
-            songText,
+            lyrics: parsed.lyrics,
+            chords: parsed.chords,
             title: 'My Amazing Song',
         };
 
         this.props.client.createSong(song)
             .then(id => {
                 console.log(`Song created: ${id}`);
-                this.setState({ songText, uniqueChords });
+                // Create SongViewer component using router w/ id and client
             }).catch(e => {
                 alert(e.message);
                 console.error(e);
@@ -50,9 +37,8 @@ class SongEditor extends Component {
             <div>
                 <textarea ref={ input => this.songTextInput = input } />
                 <button onClick={ this.handleUpdate }>
-                    Update
+                    Create
                 </button>
-                { this.renderUniqueChords() }
             </div>
         )
     }
