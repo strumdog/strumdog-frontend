@@ -16,3 +16,8 @@
   font-size: 36px;
 }
 
+.autoscroller {
+   position: fixed;
+   margin-left: 88%;
+   z-index: 1;
+}

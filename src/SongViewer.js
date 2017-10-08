@@ -107,7 +107,7 @@ class SongViewer extends Component {
 
         return (
             <div>
-                <Autoscroller />
+                <Autoscroller className="autoscroller" />
                 <h1>{ this.state.title }</h1>
                 { lyricLines.map((line, i) => this.renderLyricLine(line, i)) }
             </div>
