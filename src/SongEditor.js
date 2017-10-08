@@ -24,14 +24,13 @@ class SongEditor extends Component {
 
         const titleText = this.titleTextInput.value;
         const songText = this.songTextInput.value;
+        const lyricsCleanerChecked = (this.lyricsCleanerChecked.value === "on" ? true : false);
 
-        this.maybeClean(songText, this.lyricsCleanerChecked)
+        this.maybeClean(songText, lyricsCleanerChecked)
             .then(parseInputText)
             .then(parsed =>
                 this.props.client.createSong(titleText, parsed.lyrics, parsed.chords)
                     .then(id => {
-
-                console.log(this.lyricsCleanerChecked)
                         console.log(`Song created: ${id}`);
                         this.context.router.history.push(`/song/${id}`);
                     }))
@@ -51,7 +50,7 @@ class SongEditor extends Component {
                             <ControlLabel className="pull-left">Chord tab</ControlLabel>
                             <FormControl componentClass="textarea" inputRef={ songTextInput => this.songTextInput = songTextInput } />
                             <Row>
-                                <Checkbox inline inputRef={ ref => this.lyricsCleanerChecked = ref }>Use lyrics cleaner</Checkbox>
+                                <Checkbox inline inputRef={ ref => this.lyricsCleanerChecked = ref}>Use lyrics cleaner</Checkbox>
                                 <Button bsStyle="primary" bsSize="lg" onClick={ this.handleUpdate }>
                                     Create
                                 </Button>
