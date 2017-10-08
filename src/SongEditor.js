@@ -11,19 +11,27 @@ class SongEditor extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
+    maybeClean (lyrics, shouldClean) {
+        if (shouldClean) {
+            return this.props.client.cleanLyrics(lyrics);
+        } else {
+            return Promise.resolve(lyrics);
+        }
+    }
 
     handleUpdate() {
-
         const titleText = this.titleTextInput.value;
         const songText = this.songTextInput.value;
 
-        const parsed = parseInputText(songText);
-
-        this.props.client.createSong(titleText, parsed.lyrics, parsed.chords)
-            .then(id => {
-                console.log(`Song created: ${id}`);
-                this.context.router.history.push(`/song/${id}`);
-            }).catch(e => {
+        this.maybeClean(songText, false)
+            .then(parseInputText)
+            .then(parsed =>
+                this.props.client.createSong(titleText, parsed.lyrics, parsed.chords)
+                    .then(id => {
+                        console.log(`Song created: ${id}`);
+                        this.context.router.history.push(`/song/${id}`);
+                    }))
+            .catch(e => {
                 this.props.errorManager.addError(e);
             });
     }
