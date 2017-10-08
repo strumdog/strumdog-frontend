@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { parseInputText } from './chordParser.js'
-import { Button, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Row, Col, ControlLabel, Checkbox } from 'react-bootstrap';
+import './SongEditor.css'
 
 class SongEditor extends Component {
 
@@ -40,9 +41,12 @@ class SongEditor extends Component {
                         <FormControl componentClass="input" inputRef= { titleTextInput => this.titleTextInput = titleTextInput } />
                         <ControlLabel className="pull-left">Chord tab</ControlLabel>
                         <FormControl componentClass="textarea" inputRef={ songTextInput => this.songTextInput = songTextInput } />
-                        <Button bsStyle="success" bsSize="lg" onClick={ this.handleUpdate }>
+                    <Row>
+                        <Checkbox inline>Use lyrics cleaner</Checkbox>
+                        <Button bsStyle="primary" bsSize="lg" onClick={ this.handleUpdate }>
                             Create
                         </Button>
+                    </Row>
                     </FormGroup>
                 </form>
                 </Col>

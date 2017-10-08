@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Row } from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 import SongEditor from './SongEditor';
@@ -32,10 +33,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Strumdog</h1>
-        </header>
+          <Row className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <h1 className="App-title">Strumdog</h1>
+          </Row>
         <Errors manager={ errorManager } />
         <p className="App-intro">
           Copy your chord tab into the box below.
