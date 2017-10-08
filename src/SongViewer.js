@@ -4,6 +4,9 @@ import { fingeringForChord } from './chordMap';
 import groupBy from 'lodash.groupby';
 import './SongViewer.css';
 import PropTypes from 'prop-types';
+import Scroll from 'react-scroll'; // Imports all Mixins
+import {scroller} from 'react-scroll'; //Imports scroller mixin, can use as scroller.scrollTo()
+
 
 class SongViewer extends Component {
 
@@ -107,10 +110,35 @@ class SongViewer extends Component {
 
         return (
             <div>
+                <h1>{ this.autoscroll() }</h1>
                 <h1>{ this.state.title }</h1>
                 { lyricLines.map((line, i) => this.renderLyricLine(line, i)) }
             </div>
         )
+    }
+
+    autoscroll(){
+        
+
+        return (
+            <div>
+                <button onClick={ this.scrolling() }>
+                    Autoscroll
+                </button>
+            </div>
+            )
+    }
+
+    scrolling(){
+        var Scroll = require('react-scroll');
+        var scroll = Scroll.animateScroll;
+
+        const options = {
+            smooth:true,
+            duration:5000,
+            delay:500
+        };
+        return scroll.scrollMore(50,options);
     }
 }
 
