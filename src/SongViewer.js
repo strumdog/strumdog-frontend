@@ -4,6 +4,7 @@ import { fingeringForChord } from './chordMap';
 import groupBy from 'lodash.groupby';
 import './SongViewer.css';
 import PropTypes from 'prop-types';
+import Autoscroller from './Autoscroller';
 
 class SongViewer extends Component {
 
@@ -106,6 +107,7 @@ class SongViewer extends Component {
 
         return (
             <div>
+                <Autoscroller />
                 <h1>{ this.state.title }</h1>
                 { lyricLines.map((line, i) => this.renderLyricLine(line, i)) }
             </div>
