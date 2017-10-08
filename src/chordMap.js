@@ -2,7 +2,7 @@ import { mapFlatToSharp } from './flatToSharpMap';
 
 export const fingeringForChord = (chord) => {
 
-    chord = mapFlatToSharp(chord)
+    chord = mapFlatToSharp(chord);
 
     const tabs = {
         "G#7sus":"1324",
