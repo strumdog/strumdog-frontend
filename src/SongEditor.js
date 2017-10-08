@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Parser, Chord } from 'react-chord-parser';
 import PropTypes from 'prop-types';
-import { flatToSharp } from './flatToSharpMap';
 import { fingeringForChord } from './chordMap';
 
 class SongEditor extends Component {
@@ -22,7 +21,7 @@ class SongEditor extends Component {
             <Chord
                 key={ chord }
                 name={ chord }
-                diagram={ flatToSharp( fingeringForChord(chord) ) }/>
+                diagram={ fingeringForChord(chord) }/>
         ));
     }
 
