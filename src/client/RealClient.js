@@ -35,7 +35,7 @@ class RealClient extends Client {
                 'Content-Type': 'application/json',
             },
         })
-            .then(this.checkResponseStatus)
+            .then(this.constructor.checkResponseStatus)
             .then(response => response.json())
             .then(json => json.id);
     }
@@ -44,9 +44,8 @@ class RealClient extends Client {
         return fetch(`${this.baseUri}/songs/${id}`, {
             mode: 'cors',
         })
-            .then(response => this.checkResponseStatus(response, 'Song not found'))
-            .then(response => response.json())
-            .then(json => json.id);
+            .then(response => this.constructor.checkResponseStatus(response, 'Song not found'))
+            .then(response => response.json());
     }
 }
 
