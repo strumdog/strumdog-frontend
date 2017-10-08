@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { parseInputText } from './chordParser.js'
-import { Button, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Row, Col, ControlLabel, Checkbox } from 'react-bootstrap';
+import './SongEditor.css'
 
 class SongEditor extends Component {
 
@@ -20,10 +21,12 @@ class SongEditor extends Component {
     }
 
     handleUpdate() {
+
         const titleText = this.titleTextInput.value;
         const songText = this.songTextInput.value;
+        const lyricsCleanerChecked = (this.lyricsCleanerChecked.value === "on" ? true : false);
 
-        this.maybeClean(songText, false)
+        this.maybeClean(songText, lyricsCleanerChecked)
             .then(parseInputText)
             .then(parsed =>
                 this.props.client.createSong(titleText, parsed.lyrics, parsed.chords)
@@ -40,17 +43,21 @@ class SongEditor extends Component {
         return (
             <div>
                 <Col xs={6} xsOffset={3} >
-                <form>
-                    <FormGroup>
-                        <ControlLabel className="pull-left">Song title</ControlLabel>
-                        <FormControl componentClass="input" inputRef= { titleTextInput => this.titleTextInput = titleTextInput } />
-                        <ControlLabel className="pull-left">Chord tab</ControlLabel>
-                        <FormControl componentClass="textarea" inputRef={ songTextInput => this.songTextInput = songTextInput } />
-                        <Button bsStyle="success" bsSize="lg" onClick={ this.handleUpdate }>
-                            Create
-                        </Button>
-                    </FormGroup>
-                </form>
+                    <h4>Copy your chord tab into the box below.</h4>
+                    <form>
+                        <FormGroup>
+                            <ControlLabel className="pull-left">Song title</ControlLabel>
+                            <FormControl componentClass="input" inputRef= { titleTextInput => this.titleTextInput = titleTextInput } />
+                            <ControlLabel className="pull-left">Chord tab</ControlLabel>
+                            <FormControl componentClass="textarea" inputRef={ songTextInput => this.songTextInput = songTextInput } />
+                            <Row>
+                                <Checkbox inline inputRef={ ref => this.lyricsCleanerChecked = ref}>Use lyrics cleaner</Checkbox>
+                                <Button bsStyle="primary" bsSize="lg" onClick={ this.handleUpdate }>
+                                    Create
+                                </Button>
+                            </Row>
+                        </FormGroup>
+                    </form>
                 </Col>
             </div>
         )
