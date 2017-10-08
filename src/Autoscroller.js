@@ -9,8 +9,7 @@ class Autoscroller extends Component {
         }
     }
 
-    setScrollRate (pixelsPerSecond) {
-        const intervalMillis = 100.;
+    setScrollRate (pixelsPerSecond, intervalMillis) {
         const pixelsPerStep = pixelsPerSecond / 1000. * intervalMillis;
 
         this.cancel();
@@ -24,8 +23,8 @@ class Autoscroller extends Component {
     render () {
         return (
             <div className="autoscroller">
-                <button onClick={ () => this.setScrollRate(35) }>Slow</button>
-                <button onClick={ () => this.setScrollRate(100) }>Fast</button>
+                <button onClick={ () => this.setScrollRate(35, 100.) }>Slow</button>
+                <button onClick={ () => this.setScrollRate(100, 20.) }>Fast</button>
                 <button onClick={ () => this.cancel() }>Stop</button>
             </div>
         );
