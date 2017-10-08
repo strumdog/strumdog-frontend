@@ -47,12 +47,13 @@ class SongEditor extends Component {
 
 SongEditor.propTypes = {
     client: PropTypes.object.isRequired,
+    errorManager: PropTypes.object.isRequired,
 };
 
 SongEditor.contextTypes = {
-  router: PropTypes.shape({
-    history: PropTypes.object.isRequired,
-  }),
+    router: PropTypes.shape({
+        history: PropTypes.object.isRequired,
+    }),
 };
 
 export default SongEditor;
