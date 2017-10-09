@@ -10,6 +10,7 @@ import config from './config';
 import SongViewer from './SongViewer';
 import ErrorManager from './ErrorManager';
 import Errors from './Errors';
+import { HashRouter } from 'react-router-dom';
 
 let client;
 if (config.mock) {
@@ -32,17 +33,19 @@ const SongViewerWrapper = (params) => (
 class App extends Component {
   render() {
     return (
-      <div className="App">
-          <Row className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">Strumdog</h1>
-          </Row>
-        <Errors manager={ errorManager } />
-        <Switch>
-            <Route exact path="/" component={ SongEditorWrapper }/>
-            <Route path="/song/:id" component={ SongViewerWrapper }/>
-        </Switch>
-      </div>
+      <HashRouter>
+        <div className="App">
+            <Row className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <h1 className="App-title">Strumdog</h1>
+            </Row>
+          <Errors manager={ errorManager } />
+          <Switch>
+              <Route exact path="/" component={ SongEditorWrapper }/>
+              <Route path="/song/:id" component={ SongViewerWrapper }/>
+          </Switch>
+        </div>
+      </HashRouter>
     );
   }
 }

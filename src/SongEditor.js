@@ -49,7 +49,7 @@ class SongEditor extends Component {
                             <ControlLabel className="pull-left">Song title</ControlLabel>
                             <FormControl componentClass="input" inputRef= { titleTextInput => this.titleTextInput = titleTextInput } />
                             <ControlLabel className="pull-left">Chord tab</ControlLabel>
-                            <FormControl componentClass="textarea" style={{"font-family": "monospace"}} inputRef={ songTextInput => this.songTextInput = songTextInput } />
+                            <FormControl componentClass="textarea" style={{ fontFamily: 'monospace' }} inputRef={ songTextInput => this.songTextInput = songTextInput } />
                             <Row>
                                 <Checkbox inline inputRef={ ref => this.lyricsCleanerChecked = ref}>Use lyrics cleaner</Checkbox>
                                 <Button bsStyle="primary" bsSize="lg" onClick={ this.handleUpdate }>
