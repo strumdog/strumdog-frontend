@@ -3,8 +3,10 @@ language: node_js
 node_js:
   - 6
 
-python:
-  - 2.7
+before_install:
+  # baiji is a dependency of urj, and will not install correctly during yarn
+  # install.
+  - pip install --user baiji
 
 cache:
   directories:
