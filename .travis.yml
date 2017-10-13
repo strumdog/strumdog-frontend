@@ -23,7 +23,6 @@ jobs:
         - npm test
     - stage: deploy
       script:
-        - npm run build
         - npm run deploy:production
 
 stages:
