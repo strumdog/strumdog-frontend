@@ -15,3 +15,16 @@ cache:
 script:
   - npm run build
   - npm test
+
+jobs:
+  include:
+    - script:
+        - npm run build
+        - npm test
+    - stage: deploy
+      script: npm run deploy:production
+
+# stages:
+#   - test
+#   - name: deploy
+#     if: branch = master
