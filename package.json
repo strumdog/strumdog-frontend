@@ -23,7 +23,7 @@
     "build": "react-scripts-ts build",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "prettier-check": "prettier-check 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.js'",
+    "prettier-check": "prettier-check '*.ts' '*.tsx' '*.js' src/**/*.ts' 'src/**/*.tsx' 'src/**/*.js'",
     "tests": "react-scripts-ts test --env=jsdom",
     "test": "cross-env CI=true run-p lint type-check tests"
   },

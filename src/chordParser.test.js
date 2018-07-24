@@ -1,7 +1,6 @@
-import { parseInputText } from './chordParser';
+import { parseInputText } from './chordParser'
 
 it('parses input text', () => {
-
   const testInput = [
     'G                D                   ',
     'When I find myself in times of trouble,',
@@ -9,7 +8,7 @@ it('parses input text', () => {
     'Mother Mary comes to me,               ',
     '  G              D       C          G  ',
     'Speaking words of wisdom, let it be.',
-  ].join('\n');
+  ].join('\n')
 
   const expected = {
     lyrics: [
@@ -26,8 +25,8 @@ it('parses input text', () => {
       { chord: 'D', line: 3, position: 18 },
       { chord: 'C', line: 3, position: 26 },
       { chord: 'G', line: 3, position: 37 },
-    ]
-  };
+    ],
+  }
 
-  expect(parseInputText(testInput)).toEqual(expected);
-});
+  expect(parseInputText(testInput)).toEqual(expected)
+})

@@ -1,25 +1,25 @@
-const ee = require('event-emitter');
+const ee = require('event-emitter')
 
 class ErrorManager {
-    constructor () {
-        this._errors = [];
+  constructor() {
+    this._errors = []
+  }
+
+  addError(error) {
+    if (error.message === 'Failed to fetch') {
+      error.message = 'An error occurred while contacting the server'
     }
 
-    addError (error) {
-        if (error.message === 'Failed to fetch') {
-            error.message = 'An error occurred while contacting the server';
-        }
+    console.error(error)
+    this._errors.push(error)
+    this.emit('added', error)
+  }
 
-        console.error(error);
-        this._errors.push(error);
-        this.emit('added', error);
-    }
-
-    getErrors () {
-        return this._errors.slice();
-    }
+  getErrors() {
+    return this._errors.slice()
+  }
 }
 
-ee(ErrorManager.prototype);
+ee(ErrorManager.prototype)
 
-export default ErrorManager;
+export default ErrorManager
