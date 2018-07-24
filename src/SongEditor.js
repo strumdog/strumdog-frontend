@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { parseInputText } from './chordParser.js'
+import { parseInputText } from './chord-parser'
 import {
   Button,
   FormGroup,

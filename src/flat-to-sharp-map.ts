@@ -1,4 +1,4 @@
-export const mapFlatToSharp = chord => {
+export function mapFlatToSharp(chord: string) : string {
   const flats = {
     Bb: 'A#',
     Bb7: 'A#7',
@@ -69,9 +69,7 @@ export const mapFlatToSharp = chord => {
   if (sharp) {
     return sharp
   }
-  /*
-    * returning original chord instead. 
-    * Error will be caught at chordMap.js.
-    */
+  // returning original chord instead.
+  // Error will be caught at chordMap.js.
   return chord
 }

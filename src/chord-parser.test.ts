@@ -1,4 +1,4 @@
-import { parseInputText } from './chordParser'
+import { parseInputText } from './chord-parser'
 
 it('parses input text', () => {
   const testInput = [

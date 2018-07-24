@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Parser, Chord } from 'react-chord-parser'
-import { fingeringForChord } from './chordMap'
+import { fingeringForChord } from './chord-map'
 import groupBy from 'lodash.groupby'
 import './SongViewer.css'
 import PropTypes from 'prop-types'
