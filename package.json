@@ -12,18 +12,17 @@
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "serve": "^9.3.0"
   },
   "scripts": {
     "start:local": "REACT_APP_BASE_URI=http://localhost:2999 react-scripts start",
     "start:production": "REACT_APP_BASE_URI=https://strumdog.herokuapp.com react-scripts start",
     "start": "react-scripts start",
+    "now-start": "serve --single build/",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy:production": "REACT_APP_BASE_URI=https://strumdog.herokuapp.com npm run build && urj build/ s3://strum.dog"
-  },
-  "devDependencies": {
-    "urj": "^1.1.3"
   }
 }
