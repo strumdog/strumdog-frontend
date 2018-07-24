@@ -9,7 +9,9 @@ cache:
 
 script:
   - npm run build
-  - npm test
+  - npm run typecheck
+  - npm run tests
+  - npm run lint
 
 jobs:
   include:

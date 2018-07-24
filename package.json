@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@metabolize/react-scripts-ts": "^2.16.0",
     "bootstrap": "^3.3.7",
     "event-emitter": "^0.3.5",
     "lodash.groupby": "^4.6.0",
@@ -12,16 +13,29 @@
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
     "serve": "^9.3.0"
   },
   "scripts": {
-    "start:local": "REACT_APP_BASE_URI=http://localhost:2999 react-scripts start",
-    "start:production": "REACT_APP_BASE_URI=https://strumdog.herokuapp.com react-scripts start",
-    "start": "react-scripts start",
+    "start:local": "cross-env REACT_APP_BASE_URI=http://localhost:2999 react-scripts-ts start",
+    "start:production": "cross-env REACT_APP_BASE_URI=https://strumdog.herokuapp.com react-scripts-ts start",
+    "start": "react-scripts-ts start",
     "now-start": "serve --single build/",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "react-scripts-ts build",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "prettier-check": "prettier-check 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.js'",
+    "tests": "react-scripts-ts test --env=jsdom",
+    "test": "cross-env CI=true run-p lint type-check tests"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.0",
+    "@types/node": "^10.5.2",
+    "@types/react": "^16.4.7",
+    "@types/react-dom": "^16.0.6",
+    "cross-env": "^5.2.0",
+    "npm-run-all": "^4.1.3",
+    "prettier": "^1.13.7",
+    "prettier-check": "^2.0.0",
+    "typescript": "^2.9.2"
   }
 }
