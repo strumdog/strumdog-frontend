@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { Row } from 'react-bootstrap'
 import logo from './SD-logo-shape.svg'
@@ -12,7 +12,7 @@ import ErrorManager from './ErrorManager'
 import Errors from './Errors'
 import { HashRouter } from 'react-router-dom'
 
-let client
+let client: any
 if (config.mock) {
   client = new MockClient()
 } else {
@@ -25,7 +25,7 @@ const SongEditorWrapper = () => (
   <SongEditor client={client} errorManager={errorManager} />
 )
 
-const SongViewerWrapper = params => (
+const SongViewerWrapper = (params: any) => (
   <SongViewer
     match={params.match}
     client={client}
@@ -33,7 +33,7 @@ const SongViewerWrapper = params => (
   />
 )
 
-class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <HashRouter>
@@ -52,5 +52,3 @@ class App extends Component {
     )
   }
 }
-
-export default App
