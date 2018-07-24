@@ -1,11 +1,11 @@
 class IdSequence {
-  constructor () {
-      this.next = 101;
+  constructor() {
+    this.next = 101
   }
 
-  getNext () {
-      return this.next++;
+  getNext() {
+    return this.next++
   }
 }
 
-export default IdSequence;
+export default IdSequence
