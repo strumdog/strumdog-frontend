@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 export default class Autoscroller extends React.Component {
-  // eslint-disable-next-line no-undef
   private interval?: number
 
   private cancel() {
@@ -12,7 +11,7 @@ export default class Autoscroller extends React.Component {
   }
 
   private setScrollRate(pixelsPerSecond: number, intervalMillis: number) {
-    const pixelsPerStep = (pixelsPerSecond / 1000) * intervalMillis
+    const pixelsPerStep = pixelsPerSecond / 1000 * intervalMillis
 
     this.cancel()
 

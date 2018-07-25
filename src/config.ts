@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 export interface IConfig {
   mock: boolean
   baseUri?: string

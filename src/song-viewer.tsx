@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import * as React from 'react'
 import { Parser, Chord, ChordName } from 'react-chord-parser'
 import { fingeringForChord } from './chord-map'

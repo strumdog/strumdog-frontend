@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import { TablatureString } from './chord-map'
 
 const chordRegex = /((\\)?\b[A-G](?:(?:add|dim|aug|maj|mM|mMaj|sus|m|b|#|\d)?(?:\/[A-G0-9])?)*(?!\||—|-|\.|:)(?:\b|#)+)/g
