@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Parser, Chord, ChordName } from 'react-chord-parser'
 import { fingeringForChord } from './chord-map'
-import { groupBy } from 'lodash-es'
+import groupBy from 'lodash.groupby'
 import './SongViewer.css'
 import Autoscroller from './Autoscroller'
 
