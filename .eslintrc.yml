@@ -3,6 +3,6 @@ parser: typescript-eslint-parser
 extends: eslint-config-react-app
 
 rules:
-  // Lots of false positives.
-  // https://github.com/eslint/eslint/issues/8720
+  # Lots of false positives.
+  # https://github.com/eslint/eslint/issues/8720
   no-undef: "off"
