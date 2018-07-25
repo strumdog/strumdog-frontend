@@ -20,9 +20,9 @@ export default class Errors extends React.Component<IProps> {
   render() {
     return (
       <ul>
-        {(this.props.manager
-          .getErrors() as IError[])
-          .map((e, i) => <li key={i}>{e.message}</li>)}
+        {(this.props.manager.getErrors() as IError[]).map((e, i) => (
+          <li key={i}>{e.message}</li>
+        ))}
       </ul>
     )
   }

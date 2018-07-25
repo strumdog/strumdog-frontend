@@ -2,7 +2,7 @@ import { mapFlatToSharp } from './flat-to-sharp-map'
 
 export type TablatureString = string
 
-export const fingeringForChord = (chord: string) : TablatureString => {
+export const fingeringForChord = (chord: string): TablatureString => {
   chord = mapFlatToSharp(chord)
 
   const tabs = {

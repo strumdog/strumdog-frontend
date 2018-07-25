@@ -12,6 +12,7 @@ script:
   - npm run typecheck
   - npm run tests
   - npm run lint
+  - npm run prettier-check
 
 jobs:
   include:

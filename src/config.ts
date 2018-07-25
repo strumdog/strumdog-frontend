@@ -5,7 +5,7 @@ export interface IConfig {
   baseUri?: string
 }
 
-const config = (() : IConfig => {
+const config = ((): IConfig => {
   if (process.env.REACT_APP_BASE_URI) {
     return {
       mock: false,

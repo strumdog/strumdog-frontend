@@ -18,7 +18,7 @@ export interface ParserResult {
   chords: IPositionedChord2D[]
 }
 
-export function parseLine(line: string) : IPositionedChord1D[] {
+export function parseLine(line: string): IPositionedChord1D[] {
   const result = []
 
   let match
@@ -33,7 +33,7 @@ export function parseLine(line: string) : IPositionedChord1D[] {
   return result
 }
 
-export function parseInputText(text: string) : ParserResult {
+export function parseInputText(text: string): ParserResult {
   const lyrics = [] as string[]
   let chords = [] as IPositionedChord2D[]
 
