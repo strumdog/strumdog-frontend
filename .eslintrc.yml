@@ -1,3 +1,8 @@
 # Not working but here as a placeholder for the moment.
 parser: typescript-eslint-parser
 extends: eslint-config-react-app
+
+rules:
+  # Lots of false positives.
+  # https://github.com/eslint/eslint/issues/8720
+  no-undef: "off"

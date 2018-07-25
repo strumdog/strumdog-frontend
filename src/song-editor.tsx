@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { parseInputText } from './chordParser.js'
+import * as React from 'react'
+import { parseInputText } from './chord-parser'
 import {
   Button,
   FormGroup,
@@ -11,41 +10,48 @@ import {
   Checkbox,
 } from 'react-bootstrap'
 import './SongEditor.css'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { IClient } from './client/client'
 
-class SongEditor extends Component {
-  constructor(props) {
-    super(props)
+export interface IProps extends RouteComponentProps<{}> {
+  client: IClient
+  errorManager: any
+}
 
-    this.handleUpdate = this.handleUpdate.bind(this)
-  }
+class SongEditor extends React.Component<IProps> {
+  private titleTextInput: any
+  private songTextInput: any
+  private lyricsCleanerChecked: any
 
-  maybeClean(lyrics, shouldClean) {
+  async maybeClean(lyrics: string, shouldClean: boolean) {
     if (shouldClean) {
       return this.props.client.cleanLyrics(lyrics)
     } else {
-      return Promise.resolve(lyrics)
+      return lyrics
     }
   }
 
-  handleUpdate() {
-    const titleText = this.titleTextInput.value
+  handleUpdate = async () => {
+    const { history } = this.props
+
+    const title = this.titleTextInput.value
     const songText = this.songTextInput.value
     const lyricsCleanerChecked =
       this.lyricsCleanerChecked.value === 'on' ? true : false
 
-    this.maybeClean(songText, lyricsCleanerChecked)
-      .then(parseInputText)
-      .then(parsed =>
-        this.props.client
-          .createSong(titleText, parsed.lyrics, parsed.chords)
-          .then(id => {
-            console.log(`Song created: ${id}`)
-            this.context.router.history.push(`/song/${id}`)
-          })
-      )
-      .catch(e => {
-        this.props.errorManager.addError(e)
-      })
+    const cleaned = await this.maybeClean(songText, lyricsCleanerChecked)
+    const { lyrics, chords } = parseInputText(cleaned)
+
+    let id
+    try {
+      id = await this.props.client.createSong({ title, lyrics, chords })
+    } catch (e) {
+      this.props.errorManager.addError(e)
+      return
+    }
+
+    console.log(`Song created: ${id}`)
+    history.push(`/song/${id}`)
   }
 
   render() {
@@ -91,15 +97,5 @@ class SongEditor extends Component {
   }
 }
 
-SongEditor.propTypes = {
-  client: PropTypes.object.isRequired,
-  errorManager: PropTypes.object.isRequired,
-}
-
-SongEditor.contextTypes = {
-  router: PropTypes.shape({
-    history: PropTypes.object.isRequired,
-  }),
-}
-
-export default SongEditor
+const SongEditorWithRouter = withRouter(SongEditor)
+export default SongEditorWithRouter

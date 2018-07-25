@@ -1,37 +1,60 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { Parser, Chord } from 'react-chord-parser'
-import { fingeringForChord } from './chordMap'
+import { fingeringForChord } from './chord-map'
 import groupBy from 'lodash.groupby'
 import './SongViewer.css'
-import PropTypes from 'prop-types'
 import Autoscroller from './Autoscroller'
+import {
+  IPositionedChord1D,
+  IPositionedChord,
+  ISongEntity,
+  SongId,
+  IClient,
+} from './client/client'
 
-class SongViewer extends Component {
-  constructor(props) {
-    super(props)
+export interface IMatchParams {
+  id: SongId
+}
 
-    this.state = {
-      title: '',
-      lyrics: [],
-      chords: [],
-      uniqueChords: [],
-    }
-  }
+export interface IProps extends IMatchParams {
+  client: IClient
+  errorManager: any
+}
+
+interface IState {
+  title: string
+  lyrics: string[]
+  chords: IPositionedChord[]
+  uniqueChords: any[]
+}
+
+interface IChordGroup {
+  lyrics: string
+  chords: IPositionedChord[]
+}
+
+class SongViewer extends React.Component<IProps> {
+  state = {
+    title: '',
+    lyrics: [],
+    chords: [],
+    uniqueChords: [],
+  } as IState
 
   componentDidMount() {
     this.getSongAndChords(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: IProps) {
     this.getSongAndChords(nextProps)
   }
 
-  getSongAndChords(props) {
-    const id = Number(props.match.params.id)
+  getSongAndChords(props: IProps) {
+    const { id, client, errorManager } = props
 
-    props.client
+    client
       .getSong(id)
-      .then(song => {
+      .then((song: ISongEntity) => {
         const chordsString = song.chords.map(info => info.chord).join(' ')
         this.setState({
           title: song.title,
@@ -40,12 +63,15 @@ class SongViewer extends Component {
           uniqueChords: new Parser(chordsString).unique(),
         })
       })
-      .catch(e => {
-        props.errorManager.addError(e)
+      .catch((e: any) => {
+        errorManager.addError(e)
       })
   }
 
-  static groupLyricLines(lyrics, chords) {
+  static groupLyricLines(
+    lyrics: string[],
+    chords: IPositionedChord[]
+  ): IChordGroup[] {
     const groupedChords = groupBy(chords, info => info.line - 1)
 
     const result = []
@@ -60,12 +86,12 @@ class SongViewer extends Component {
     return result
   }
 
-  renderChordContainer(chords) {
+  renderChordContainer(chords: IPositionedChord1D[]): JSX.Element {
     const pointSize = 36
     const characterWidth =
       0.6 /* Roboto Mono height to width ratio */ * pointSize
 
-    const chordStyle = left => ({
+    const chordStyle = (left: number) => ({
       left:
         characterWidth * (left - 1) - 18 /* about the left margin of the tab */,
       position: 'absolute',
@@ -87,44 +113,45 @@ class SongViewer extends Component {
     )
   }
 
-  renderLyricLine({ lyrics, chords }, key) {
+  renderLyricLine(
+    { lyrics, chords }: IChordGroup,
+    key: React.Key
+  ): JSX.Element {
     // If a line has only chords, space them out a bit. This allows lines
     // like this to work correctly:
     // C Am F G
+    let positionedChords
     if (!lyrics) {
-      chords = chords.map(chord => ({
+      positionedChords = chords.map(chord => ({
         chord: chord.chord,
         position: 1.4 /* A little extra space */ * (chord.position - 1) + 1,
       }))
+    } else {
+      positionedChords = chords
     }
 
     return (
       <div className="lyricLine" key={key}>
-        {this.renderChordContainer(chords)}
+        {this.renderChordContainer(positionedChords)}
         <div className="lyric">{lyrics}</div>
       </div>
     )
   }
 
   render() {
-    const lyricLines = this.constructor.groupLyricLines(
+    const lyricLines = SongViewer.groupLyricLines(
       this.state.lyrics,
       this.state.chords
     )
 
     return (
       <div>
-        <Autoscroller className="autoscroller" />
+        <Autoscroller />
         <h1>{this.state.title}</h1>
         {lyricLines.map((line, i) => this.renderLyricLine(line, i))}
       </div>
     )
   }
-}
-
-SongViewer.propTypes = {
-  client: PropTypes.object.isRequired,
-  errorManager: PropTypes.object.isRequired,
 }
 
 export default SongViewer

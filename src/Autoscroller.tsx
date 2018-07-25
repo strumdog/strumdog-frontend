@@ -1,19 +1,21 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 
-class Autoscroller extends Component {
-  cancel() {
+export default class Autoscroller extends React.Component {
+  private interval?: number
+
+  private cancel() {
     if (this.interval) {
-      clearInterval(this.interval)
-      this.interval = null
+      window.clearInterval(this.interval)
+      this.interval = undefined
     }
   }
 
-  setScrollRate(pixelsPerSecond, intervalMillis) {
+  private setScrollRate(pixelsPerSecond: number, intervalMillis: number) {
     const pixelsPerStep = pixelsPerSecond / 1000 * intervalMillis
 
     this.cancel()
 
-    this.interval = setInterval(() => {
+    this.interval = window.setInterval(() => {
       console.log(pixelsPerStep)
       window.scrollBy(0, pixelsPerStep)
     }, intervalMillis)
@@ -29,5 +31,3 @@ class Autoscroller extends Component {
     )
   }
 }
-
-export default Autoscroller

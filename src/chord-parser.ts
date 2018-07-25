@@ -1,6 +1,22 @@
+import { TablatureString } from './chord-map'
+
 const chordRegex = /((\\)?\b[A-G](?:(?:add|dim|aug|maj|mM|mMaj|sus|m|b|#|\d)?(?:\/[A-G0-9])?)*(?!\||—|-|\.|:)(?:\b|#)+)/g
 
-export const parseLine = line => {
+export interface IPositionedChord1D {
+  chord: TablatureString
+  position: number
+}
+
+export interface IPositionedChord2D extends IPositionedChord1D {
+  line: number
+}
+
+export interface ParserResult {
+  lyrics: string[]
+  chords: IPositionedChord2D[]
+}
+
+export function parseLine(line: string): IPositionedChord1D[] {
   const result = []
 
   let match
@@ -15,9 +31,9 @@ export const parseLine = line => {
   return result
 }
 
-export const parseInputText = text => {
-  const lyrics = []
-  let chords = []
+export function parseInputText(text: string): ParserResult {
+  const lyrics = [] as string[]
+  let chords = [] as IPositionedChord2D[]
 
   const inputLines = text.split('\n')
 
