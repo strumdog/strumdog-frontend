@@ -41,5 +41,17 @@
     "prettier": "^1.13.7",
     "prettier-check": "^2.0.0",
     "typescript": "^2.9.2"
+  },
+  "now": {
+    "alias": "strum.dog",
+    "build": {
+      "env": {
+        "NODE_ENV": "production",
+        "REACT_APP_BASE_URI": "https://strumdog.herokuapp.com"
+      }
+    },
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }
