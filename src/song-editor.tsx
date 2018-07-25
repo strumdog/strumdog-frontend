@@ -11,9 +11,10 @@ import {
 } from 'react-bootstrap'
 import './SongEditor.css'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { IClient } from './client/client'
 
 export interface IProps extends RouteComponentProps<{}> {
-  client: any
+  client: IClient
   errorManager: any
 }
 
@@ -33,7 +34,7 @@ class SongEditor extends React.Component<IProps> {
   handleUpdate = async () => {
     const { history } = this.props
 
-    const titleText = this.titleTextInput.value
+    const title = this.titleTextInput.value
     const songText = this.songTextInput.value
     const lyricsCleanerChecked =
       this.lyricsCleanerChecked.value === 'on' ? true : false
@@ -43,7 +44,7 @@ class SongEditor extends React.Component<IProps> {
 
     let id
     try {
-      id = await this.props.client.createSong(titleText, lyrics, chords)
+      id = await this.props.client.createSong({ title, lyrics, chords })
     } catch (e) {
       this.props.errorManager.addError(e)
       return

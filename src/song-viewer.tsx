@@ -1,34 +1,23 @@
 import * as React from 'react'
-import { Parser, Chord, ChordName } from 'react-chord-parser'
+import { Parser, Chord } from 'react-chord-parser'
 import { fingeringForChord } from './chord-map'
 import groupBy from 'lodash.groupby'
 import './SongViewer.css'
 import Autoscroller from './Autoscroller'
-
-export type SongId = string
-
-export interface IPositionedChord1D {
-  chord: ChordName
-  position: number
-}
-
-export interface IPositionedChord extends IPositionedChord1D {
-  line: number
-}
-
-interface ISongEntity {
-  id: SongId
-  title: string
-  lyrics: string[]
-  chords: IPositionedChord[]
-}
+import {
+  IPositionedChord1D,
+  IPositionedChord,
+  ISongEntity,
+  SongId,
+  IClient,
+} from './client/client'
 
 export interface IMatchParams {
   id: SongId
 }
 
 export interface IProps extends IMatchParams {
-  client: any
+  client: IClient
   errorManager: any
 }
 
@@ -61,9 +50,9 @@ class SongViewer extends React.Component<IProps> {
   }
 
   getSongAndChords(props: IProps) {
-    const id = Number(props.id)
+    const { id, client, errorManager } = props
 
-    props.client
+    client
       .getSong(id)
       .then((song: ISongEntity) => {
         const chordsString = song.chords.map(info => info.chord).join(' ')
@@ -75,7 +64,7 @@ class SongViewer extends React.Component<IProps> {
         })
       })
       .catch((e: any) => {
-        props.errorManager.addError(e)
+        errorManager.addError(e)
       })
   }
 

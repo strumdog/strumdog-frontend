@@ -4,8 +4,8 @@ import { Row } from 'react-bootstrap'
 import logo from './SD-logo-shape.svg'
 import './App.css'
 import SongEditor from './song-editor'
-import MockClient from './client/MockClient'
-import RealClient from './client/RealClient'
+import MockClient from './client/mock-client'
+import RealClient from './client/real-client'
 import config from './config'
 import SongViewer from './song-viewer'
 import { IMatchParams as ISongViewerMatchParams } from './song-viewer'
@@ -17,7 +17,7 @@ let client: any
 if (config.mock) {
   client = new MockClient()
 } else {
-  client = new RealClient(config.baseUri)
+  client = new RealClient(config.baseUri!)
 }
 
 const errorManager = new ErrorManager()
