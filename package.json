@@ -1,6 +1,7 @@
 {
   "name": "strumdog-frontend",
   "version": "0.1.0",
+  "license" : "MIT",
   "private": true,
   "dependencies": {
     "@metabolize/react-scripts-ts": "2.16.0-metabolize.2",
