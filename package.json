@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@metabolize/react-scripts-ts": "2.16.0-metabolize.2",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.0",
     "event-emitter": "^0.3.5",
     "global": "^4.3.2",
     "lodash.groupby": "^4.6.0",
