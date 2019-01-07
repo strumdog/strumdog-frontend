@@ -12,7 +12,7 @@
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
     "serve": "^9.4.2"
   },
