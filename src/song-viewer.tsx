@@ -1,9 +1,9 @@
 import * as React from 'react'
+import styled from 'styled-components'
 import { Parser, Chord } from 'react-chord-parser'
 import { fingeringForChord } from './chord-map'
 import groupBy from 'lodash.groupby'
-import './SongViewer.css'
-import Autoscroller from './Autoscroller'
+import Autoscroller from './autoscroller'
 import {
   IPositionedChord1D,
   IPositionedChord,
@@ -11,6 +11,23 @@ import {
   SongId,
   IClient,
 } from './client/client'
+
+const LyricLine = styled.div`
+  position: relative;
+  margin: 36px;
+`
+
+const ChordContainer = styled.div`
+  height: 88px;
+`
+
+const LyricContainer = styled.div`
+  font-family: 'Roboto Mono', monospace;
+  clear: both;
+  text-align: left;
+  font-size: 36px;
+  white-space: nowrap;
+`
 
 export interface IMatchParams {
   id: SongId
@@ -100,7 +117,7 @@ class SongViewer extends React.Component<IProps> {
     })
 
     return (
-      <div className="chordContainer">
+      <ChordContainer>
         {chords.map((chord, i) => (
           <Chord
             key={i}
@@ -109,7 +126,7 @@ class SongViewer extends React.Component<IProps> {
             diagram={fingeringForChord(chord.chord)}
           />
         ))}
-      </div>
+      </ChordContainer>
     )
   }
 
@@ -131,10 +148,10 @@ class SongViewer extends React.Component<IProps> {
     }
 
     return (
-      <div className="lyricLine" key={key}>
+      <LyricLine key={key}>
         {this.renderChordContainer(positionedChords)}
-        <div className="lyric">{lyrics}</div>
-      </div>
+        <LyricContainer>{lyrics}</LyricContainer>
+      </LyricLine>
     )
   }
 

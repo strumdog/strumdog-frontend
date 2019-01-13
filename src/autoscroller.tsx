@@ -1,4 +1,11 @@
 import * as React from 'react'
+import styled from 'styled-components'
+
+const AutoscrollerControls = styled.div`
+  position: fixed;
+  margin-left: 88%;
+  z-index: 1;
+`
 
 export default class Autoscroller extends React.Component {
   private interval?: number
@@ -23,11 +30,11 @@ export default class Autoscroller extends React.Component {
 
   render() {
     return (
-      <div className="autoscroller">
+      <AutoscrollerControls>
         <button onClick={() => this.setScrollRate(35, 100)}>Slow</button>
         <button onClick={() => this.setScrollRate(100, 20)}>Fast</button>
         <button onClick={() => this.cancel()}>Stop</button>
-      </div>
+      </AutoscrollerControls>
     )
   }
 }
