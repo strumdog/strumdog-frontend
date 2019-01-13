@@ -1,6 +1,5 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { parseInputText } from './chord-parser'
 import {
   Button,
   FormGroup,
@@ -11,7 +10,8 @@ import {
   Checkbox,
 } from 'react-bootstrap'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { IClient } from './client/client'
+import { parseInputText } from '../../chords/chord-parser'
+import { IClient } from '../../client/client'
 
 const EditorContainer = styled.div`
   .btn {
@@ -28,7 +28,7 @@ export interface IProps extends RouteComponentProps<{}> {
   errorManager: any
 }
 
-class SongEditor extends React.Component<IProps> {
+class SongCreator extends React.Component<IProps> {
   private titleTextInput: any
   private songTextInput: any
   private lyricsCleanerChecked: any
@@ -107,5 +107,5 @@ class SongEditor extends React.Component<IProps> {
   }
 }
 
-const SongEditorWithRouter = withRouter(SongEditor)
-export default SongEditorWithRouter
+const SongCreatorWithRouter = withRouter(SongCreator)
+export default SongCreatorWithRouter

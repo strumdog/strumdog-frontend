@@ -2,16 +2,17 @@ import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components'
 import { Row } from 'react-bootstrap'
-import logo from './SD-logo-shape.svg'
-import SongEditor from './song-editor'
-import MockClient from './client/mock-client'
-import RealClient from './client/real-client'
-import config from './config'
-import SongViewer from './song-viewer'
-import { IMatchParams as ISongViewerMatchParams } from './song-viewer'
-import ErrorManager from './ErrorManager'
-import Errors from './Errors'
 import { HashRouter } from 'react-router-dom'
+import MockClient from '../../client/mock-client'
+import RealClient from '../../client/real-client'
+import config from '../../config'
+import ErrorManager from '../../ErrorManager'
+import logo from '../common/logo.svg'
+import Errors from '../common/errors'
+import SongCreator from '../song-creator/song-creator'
+import SongViewer, {
+  IMatchParams as ISongViewerMatchParams,
+} from '../song-viewer/song-viewer'
 
 let client: any
 if (config.mock) {
@@ -22,8 +23,8 @@ if (config.mock) {
 
 const errorManager = new ErrorManager()
 
-const SongEditorWrapper = () => (
-  <SongEditor client={client} errorManager={errorManager} />
+const SongCreatorWrapper = () => (
+  <SongCreator client={client} errorManager={errorManager} />
 )
 
 const SongViewerWrapper = ({
@@ -79,7 +80,7 @@ export default class App extends React.Component {
           </AppHeader>
           <Errors manager={errorManager} />
           <Switch>
-            <Route exact path="/" component={SongEditorWrapper} />
+            <Route exact path="/" component={SongCreatorWrapper} />
             <Route path="/song/:id" component={SongViewerWrapper} />
           </Switch>
         </AppContainer>

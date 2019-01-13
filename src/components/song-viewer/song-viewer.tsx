@@ -1,16 +1,16 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Parser, Chord } from 'react-chord-parser'
-import { fingeringForChord } from './chord-map'
 import groupBy from 'lodash.groupby'
-import Autoscroller from './autoscroller'
+import { fingeringForChord } from '../../chords/chord-map'
 import {
   IPositionedChord1D,
   IPositionedChord,
   ISongEntity,
   SongId,
   IClient,
-} from './client/client'
+} from '../../client/client'
+import Autoscroller from './autoscroller'
 
 const LyricLine = styled.div`
   position: relative;
