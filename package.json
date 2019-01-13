@@ -1,7 +1,7 @@
 {
   "name": "strumdog-frontend",
   "version": "0.1.0",
-  "license" : "MIT",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@metabolize/react-scripts-ts": "2.16.0-metabolize.2",
@@ -9,10 +9,10 @@
     "event-emitter": "^0.3.5",
     "global": "^4.3.2",
     "lodash.groupby": "^4.6.0",
-    "react": "^16.4.1",
+    "react": "^16.7.0",
     "react-bootstrap": "^0.32.1",
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
     "serve": "^9.4.2"
   },
@@ -33,9 +33,9 @@
     "@types/jest": "^23.3.0",
     "@types/lodash": "^4.6.0",
     "@types/node": "^10.5.5",
-    "@types/react": "^16.4.7",
+    "@types/react": "^16.7.0",
     "@types/react-bootstrap": "^0.32.11",
-    "@types/react-dom": "^16.0.6",
+    "@types/react-dom": "^16.0.11",
     "@types/react-router-dom": "^4.2.2",
     "cross-env": "^5.2.0",
     "npm-run-all": "^4.1.3",
