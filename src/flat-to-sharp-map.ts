@@ -1,5 +1,5 @@
 export function mapFlatToSharp(chord: string): string {
-  const flats = {
+  const flats: { [chord: string]: string } = {
     Bb: 'A#',
     Bb7: 'A#7',
     Bbm: 'A#m',
