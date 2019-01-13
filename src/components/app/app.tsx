@@ -2,17 +2,17 @@ import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components'
 import { Row } from 'react-bootstrap'
-import logo from './SD-logo-shape.svg'
+import { HashRouter } from 'react-router-dom'
 import MockClient from '../../client/mock-client'
 import RealClient from '../../client/real-client'
 import config from '../../config'
 import ErrorManager from '../../ErrorManager'
+import logo from '../common/logo.svg'
+import Errors from '../common/errors'
+import SongCreator from '../song-creator/song-creator'
 import SongViewer, {
   IMatchParams as ISongViewerMatchParams,
 } from '../song-viewer/song-viewer'
-import SongCreator from '../song-creator/song-creator'
-import Errors from '../common/errors'
-import { HashRouter } from 'react-router-dom'
 
 let client: any
 if (config.mock) {
