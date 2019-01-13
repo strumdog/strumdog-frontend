@@ -11,7 +11,7 @@ export default class Autoscroller extends React.Component {
   }
 
   private setScrollRate(pixelsPerSecond: number, intervalMillis: number) {
-    const pixelsPerStep = pixelsPerSecond / 1000 * intervalMillis
+    const pixelsPerStep = (pixelsPerSecond / 1000) * intervalMillis
 
     this.cancel()
 
