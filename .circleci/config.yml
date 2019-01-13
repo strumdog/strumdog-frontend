@@ -28,7 +28,7 @@ jobs:
 
       - run:
           name: Check types
-          command: npm run typecheck
+          command: npm run type-check
           when: always
 
       - run:
