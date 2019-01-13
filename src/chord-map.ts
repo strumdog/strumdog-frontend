@@ -5,7 +5,7 @@ export type TablatureString = string
 export const fingeringForChord = (chord: string): TablatureString => {
   chord = mapFlatToSharp(chord)
 
-  const tabs = {
+  const tabs: { [chord: string]: string } = {
     'G#7sus': '1324',
     'G#sus': '1344',
     'G#9': '3323',

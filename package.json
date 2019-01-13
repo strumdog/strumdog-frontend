@@ -4,45 +4,50 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@metabolize/react-scripts-ts": "2.16.0-metabolize.2",
+    "@types/jest": "^23.3.12",
+    "@types/lodash": "^4.6.0",
+    "@types/node": "^10.12.18",
+    "@types/react": "^16.7.18",
+    "@types/react-bootstrap": "^0.32.11",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-router-dom": "^4.2.2",
     "bootstrap": "^3.3.7",
     "event-emitter": "^0.3.5",
-    "global": "^4.3.2",
     "lodash.groupby": "^4.6.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.1",
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
-    "serve": "^10.1.1"
+    "react-scripts": "^2.1.3",
+    "serve": "^10.1.1",
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "start:local": "cross-env REACT_APP_BASE_URI=http://localhost:2999 react-scripts-ts start",
     "start:production": "cross-env REACT_APP_BASE_URI=https://strumdog.herokuapp.com react-scripts-ts start",
-    "start": "react-scripts-ts start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "now-start": "serve --single build/",
-    "build": "react-scripts-ts build",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "prettier": "prettier --write '*.ts' '*.tsx' '*.js' 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.js'",
-    "prettier-check": "prettier-check '*.ts' '*.tsx' '*.js' 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.js'",
-    "tests": "react-scripts-ts test --env=jsdom",
+    "prettier": "prettier --write \"**/*.@(ts|tsx|js|md|json|yml)\"",
+    "prettier-check": "prettier-check \"**/*.@(ts|tsx|js|md|json|yml)\"",
+    "tests": "react-scripts test --env=jsdom",
     "test": "cross-env CI=true run-p lint type-check tests"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.0",
-    "@types/lodash": "^4.6.0",
-    "@types/node": "^10.5.5",
-    "@types/react": "^16.7.0",
-    "@types/react-bootstrap": "^0.32.11",
-    "@types/react-dom": "^16.0.11",
-    "@types/react-router-dom": "^4.2.2",
     "cross-env": "^5.2.0",
     "npm-run-all": "^4.1.3",
     "prettier": "^1.14.2",
-    "prettier-check": "^2.0.0",
-    "typescript": "^2.9.2"
+    "prettier-check": "^2.0.0"
   },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "now": {
     "alias": "strum.dog",
     "build": {
