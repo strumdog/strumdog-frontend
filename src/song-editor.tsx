@@ -1,4 +1,5 @@
 import * as React from 'react'
+import styled from 'styled-components'
 import { parseInputText } from './chord-parser'
 import {
   Button,
@@ -9,9 +10,18 @@ import {
   ControlLabel,
   Checkbox,
 } from 'react-bootstrap'
-import './SongEditor.css'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { IClient } from './client/client'
+
+const EditorContainer = styled.div`
+  .btn {
+    margin: 20px;
+  }
+
+  .control-label {
+    margin-top: 10px;
+  }
+`
 
 export interface IProps extends RouteComponentProps<{}> {
   client: IClient
@@ -56,7 +66,7 @@ class SongEditor extends React.Component<IProps> {
 
   render() {
     return (
-      <div>
+      <EditorContainer>
         <Col xs={6} xsOffset={3}>
           <h4>Copy your chord tab into the box below.</h4>
           <form>
@@ -92,7 +102,7 @@ class SongEditor extends React.Component<IProps> {
             </FormGroup>
           </form>
         </Col>
-      </div>
+      </EditorContainer>
     )
   }
 }
