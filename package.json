@@ -28,7 +28,7 @@
     "start:production": "cross-env REACT_APP_BASE_URI=https://strumdog.herokuapp.com react-scripts-ts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "now-start": "serve --single build/",
+    "now-build": "npm run build && mv build dist",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "prettier": "prettier --write \"**/*.@(ts|tsx|js|md|json|yml)\"",
@@ -47,13 +47,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "now": {
-    "alias": "strum.dog",
-    "build": {
-      "env": {
-        "REACT_APP_BASE_URI": "https://strumdog.herokuapp.com"
-      }
-    }
-  }
+  ]
 }
