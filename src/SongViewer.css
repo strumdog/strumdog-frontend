@@ -14,10 +14,11 @@
   clear: both;
   text-align: left;
   font-size: 36px;
+  white-space: nowrap;
 }
 
 .autoscroller {
-   position: fixed;
-   margin-left: 88%;
-   z-index: 1;
+  position: fixed;
+  margin-left: 88%;
+  z-index: 1;
 }
