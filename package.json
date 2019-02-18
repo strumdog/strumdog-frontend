@@ -12,7 +12,7 @@
     "@types/react-dom": "^16.8.0",
     "@types/react-router-dom": "^4.2.2",
     "@types/styled-components": "^4.1.10",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "event-emitter": "^0.3.5",
     "lodash.groupby": "^4.6.0",
     "react": "^16.8.2",
