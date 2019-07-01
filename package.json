@@ -23,7 +23,7 @@
     "react-scripts": "^3.0.1",
     "serve": "^11.0.1",
     "styled-components": "^4.2.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "scripts": {
     "start:local": "cross-env REACT_APP_BASE_URI=http://localhost:2999 react-scripts-ts start",
