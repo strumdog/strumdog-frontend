@@ -8,9 +8,10 @@ import RealClient from '../../client/real-client'
 import config from '../../config'
 import ErrorManager from '../../ErrorManager'
 import logo from '../common/logo.svg'
-import Errors from '../common/errors'
-import SongCreator from '../song-creator/song-creator'
-import SongViewer, {
+import { Errors } from '../common/errors'
+import { SongCreator } from '../song-creator/song-creator'
+import {
+  SongViewer,
   IMatchParams as ISongViewerMatchParams,
 } from '../song-viewer/song-viewer'
 
@@ -68,23 +69,21 @@ const Logo = styled.img`
   height: 100px;
 `
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <HashRouter>
-        <AppContainer>
-          <GlobalStyle />
-          <AppHeader>
-            <Logo src={logo} alt="logo" />
-            <H1>Strumdog</H1>
-          </AppHeader>
-          <Errors manager={errorManager} />
-          <Switch>
-            <Route exact path="/" component={SongCreatorWrapper} />
-            <Route path="/song/:id" component={SongViewerWrapper} />
-          </Switch>
-        </AppContainer>
-      </HashRouter>
-    )
-  }
+export function App() {
+  return (
+    <HashRouter>
+      <AppContainer>
+        <GlobalStyle />
+        <AppHeader>
+          <Logo src={logo} alt="logo" />
+          <H1>Strumdog</H1>
+        </AppHeader>
+        <Errors manager={errorManager} />
+        <Switch>
+          <Route exact path="/" component={SongCreatorWrapper} />
+          <Route path="/song/:id" component={SongViewerWrapper} />
+        </Switch>
+      </AppContainer>
+    </HashRouter>
+  )
 }

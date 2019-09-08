@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState, useEffect } from 'react'
 
 export interface IError {
   message: string
@@ -8,20 +9,20 @@ export interface IProps {
   manager: any
 }
 
-export default class Errors extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props)
+export function Errors({ manager }: { manager: any }) {
+  const [errors, setErrors] = useState<IError[]>([])
 
-    props.manager.on('added', () => this.forceUpdate())
-  }
+  useEffect(() => {
+    manager.on('added', () => {
+      setErrors(manager.getErrors())
+    })
+  }, manager)
 
-  render() {
-    return (
-      <ul>
-        {(this.props.manager.getErrors() as IError[]).map((e, i) => (
-          <li key={i}>{e.message}</li>
-        ))}
-      </ul>
-    )
-  }
+  return (
+    <ul>
+      {errors.map((e, i) => (
+        <li key={i}>{e.message}</li>
+      ))}
+    </ul>
+  )
 }

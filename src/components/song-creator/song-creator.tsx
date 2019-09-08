@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
 import {
   Button,
@@ -23,40 +24,41 @@ const EditorContainer = styled.div`
   }
 `
 
-export interface IProps extends RouteComponentProps<{}> {
+interface IProps extends RouteComponentProps<{}> {
   client: IClient
   errorManager: any
 }
 
-class SongCreator extends React.Component<IProps> {
-  private titleTextInput: any
-  private songTextInput: any
-  private lyricsCleanerChecked: any
+function _SongCreator({ client, errorManager, history }: IProps) {
+  const titleTextInput = useRef<HTMLInputElement>()
+  const songTextInput = useRef<HTMLInputElement>()
+  const lyricsCleanerChecked = useRef<HTMLInputElement>()
 
-  async maybeClean(lyrics: string, shouldClean: boolean) {
+  async function maybeClean(lyrics: string, shouldClean: boolean) {
     if (shouldClean) {
-      return this.props.client.cleanLyrics(lyrics)
+      return client.cleanLyrics(lyrics)
     } else {
       return lyrics
     }
   }
 
-  handleUpdate = async () => {
-    const { history } = this.props
+  async function handleUpdate() {
+    const title = titleTextInput.current ? titleTextInput.current.value : ''
+    const songText = songTextInput.current ? songTextInput.current.value : ''
+    const wantsLyricsCleaned =
+      lyricsCleanerChecked.current &&
+      lyricsCleanerChecked.current.value === 'on'
+        ? true
+        : false
 
-    const title = this.titleTextInput.value
-    const songText = this.songTextInput.value
-    const lyricsCleanerChecked =
-      this.lyricsCleanerChecked.value === 'on' ? true : false
-
-    const cleaned = await this.maybeClean(songText, lyricsCleanerChecked)
+    const cleaned = await maybeClean(songText, wantsLyricsCleaned)
     const { lyrics, chords } = parseInputText(cleaned)
 
     let id
     try {
-      id = await this.props.client.createSong({ title, lyrics, chords })
+      id = await client.createSong({ title, lyrics, chords })
     } catch (e) {
-      this.props.errorManager.addError(e)
+      errorManager.addError(e)
       return
     }
 
@@ -64,48 +66,39 @@ class SongCreator extends React.Component<IProps> {
     history.push(`/song/${id}`)
   }
 
-  render() {
-    return (
-      <EditorContainer>
-        <Col xs={6} xsOffset={3}>
-          <h4>Copy your chord tab into the box below.</h4>
-          <form>
-            <FormGroup>
-              <ControlLabel className="pull-left">Song title</ControlLabel>
-              <FormControl
-                componentClass="input"
-                inputRef={titleTextInput =>
-                  (this.titleTextInput = titleTextInput)
-                }
-              />
-              <ControlLabel className="pull-left">Chord tab</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                style={{ fontFamily: 'monospace' }}
-                inputRef={songTextInput => (this.songTextInput = songTextInput)}
-              />
-              <Row>
-                <Checkbox
-                  inline
-                  inputRef={ref => (this.lyricsCleanerChecked = ref)}
-                >
-                  Use lyrics cleaner
-                </Checkbox>
-                <Button
-                  bsStyle="primary"
-                  bsSize="lg"
-                  onClick={this.handleUpdate}
-                >
-                  Create
-                </Button>
-              </Row>
-            </FormGroup>
-          </form>
-        </Col>
-      </EditorContainer>
-    )
-  }
+  return (
+    <EditorContainer>
+      <Col xs={6} xsOffset={3}>
+        <h4>Copy your chord tab into the box below.</h4>
+        <form>
+          <FormGroup>
+            <ControlLabel className="pull-left">Song title</ControlLabel>
+            <FormControl
+              componentClass="input"
+              inputRef={ref => (titleTextInput.current = ref)}
+            />
+            <ControlLabel className="pull-left">Chord tab</ControlLabel>
+            <FormControl
+              componentClass="textarea"
+              style={{ fontFamily: 'monospace' }}
+              inputRef={ref => (songTextInput.current = ref)}
+            />
+            <Row>
+              <Checkbox
+                inline
+                inputRef={ref => (lyricsCleanerChecked.current = ref)}
+              >
+                Use lyrics cleaner
+              </Checkbox>
+              <Button bsStyle="primary" bsSize="lg" onClick={handleUpdate}>
+                Create
+              </Button>
+            </Row>
+          </FormGroup>
+        </form>
+      </Col>
+    </EditorContainer>
+  )
 }
 
-const SongCreatorWithRouter = withRouter(SongCreator)
-export default SongCreatorWithRouter
+export const SongCreator = withRouter(_SongCreator)

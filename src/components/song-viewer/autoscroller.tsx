@@ -7,7 +7,7 @@ const AutoscrollerControls = styled.div`
   z-index: 1;
 `
 
-export default class Autoscroller extends React.Component {
+export class Autoscroller extends React.Component {
   private interval?: number
 
   private cancel() {
