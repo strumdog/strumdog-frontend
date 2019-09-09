@@ -16,7 +16,7 @@ export function Errors({ manager }: { manager: any }) {
     manager.on('added', () => {
       setErrors(manager.getErrors())
     })
-  }, manager)
+  }, [manager])
 
   return (
     <ul>
