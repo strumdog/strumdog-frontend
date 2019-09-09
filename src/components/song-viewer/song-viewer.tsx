@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Parser, Chord } from 'react-chord-parser'
+import { Chord } from 'react-chord-parser'
 import groupBy from 'lodash.groupby'
 import { fingeringForChord } from '../../chords/chord-map'
 import {
@@ -10,7 +11,7 @@ import {
   SongId,
   IClient,
 } from '../../client/client'
-import Autoscroller from './autoscroller'
+import { Autoscroller } from './autoscroller'
 
 const LyricLine = styled.div`
   position: relative;
@@ -38,72 +39,52 @@ export interface IProps extends IMatchParams {
   errorManager: any
 }
 
-interface IState {
-  title: string
-  lyrics: string[]
-  chords: IPositionedChord[]
-  uniqueChords: any[]
-}
-
 interface IChordGroup {
   lyrics: string
   chords: IPositionedChord[]
 }
 
-class SongViewer extends React.Component<IProps> {
-  state = {
-    title: '',
-    lyrics: [],
-    chords: [],
-    uniqueChords: [],
-  } as IState
+function groupLyricLines(
+  lyrics: string[],
+  chords: IPositionedChord[]
+): IChordGroup[] {
+  const groupedChords = groupBy(chords, info => info.line - 1)
 
-  componentDidMount() {
-    this.getSongAndChords(this.props)
+  const result = []
+
+  for (let i = 0; i < lyrics.length; ++i) {
+    result.push({
+      lyrics: lyrics[i],
+      chords: groupedChords[i] || [],
+    })
   }
 
-  componentWillReceiveProps(nextProps: IProps) {
-    this.getSongAndChords(nextProps)
-  }
+  return result
+}
 
-  getSongAndChords(props: IProps) {
-    const { id, client, errorManager } = props
+export function SongViewer({ id, client, errorManager }: IProps) {
+  const [title, setTitle] = useState('')
+  const [lyrics, setLyrics] = useState<string[]>([])
+  const [chords, setChords] = useState<IPositionedChord[]>([])
+  // const [uniqueChords, setUniqueChords] = useState<string[]>([])
 
+  useEffect(() => {
     client
       .getSong(id)
-      .then((song: ISongEntity) => {
-        const chordsString = song.chords.map(info => info.chord).join(' ')
-        this.setState({
-          title: song.title,
-          lyrics: song.lyrics,
-          chords: song.chords,
-          uniqueChords: new Parser(chordsString).unique(),
-        })
+      .then(({ title, lyrics, chords }: ISongEntity) => {
+        setTitle(title)
+        setLyrics(lyrics)
+        setChords(chords)
+
+        // const chordString = chords.map(info => info.chord).join(' ')
+        // setUniqueChords(new Parser(chordString).unique())
       })
       .catch((e: any) => {
         errorManager.addError(e)
       })
-  }
+  }, [id, client, errorManager])
 
-  static groupLyricLines(
-    lyrics: string[],
-    chords: IPositionedChord[]
-  ): IChordGroup[] {
-    const groupedChords = groupBy(chords, info => info.line - 1)
-
-    const result = []
-
-    for (let i = 0; i < lyrics.length; ++i) {
-      result.push({
-        lyrics: lyrics[i],
-        chords: groupedChords[i] || [],
-      })
-    }
-
-    return result
-  }
-
-  renderChordContainer(chords: IPositionedChord1D[]): JSX.Element {
+  function renderChordContainer(chords: IPositionedChord1D[]): JSX.Element {
     const pointSize = 36
     const characterWidth =
       0.6 /* Roboto Mono height to width ratio */ * pointSize
@@ -130,7 +111,7 @@ class SongViewer extends React.Component<IProps> {
     )
   }
 
-  renderLyricLine(
+  function renderLyricLine(
     { lyrics, chords }: IChordGroup,
     key: React.Key
   ): JSX.Element {
@@ -149,26 +130,18 @@ class SongViewer extends React.Component<IProps> {
 
     return (
       <LyricLine key={key}>
-        {this.renderChordContainer(positionedChords)}
+        {renderChordContainer(positionedChords)}
         <LyricContainer>{lyrics}</LyricContainer>
       </LyricLine>
     )
   }
+  const lyricLines = groupLyricLines(lyrics, chords)
 
-  render() {
-    const lyricLines = SongViewer.groupLyricLines(
-      this.state.lyrics,
-      this.state.chords
-    )
-
-    return (
-      <div>
-        <Autoscroller />
-        <h1>{this.state.title}</h1>
-        {lyricLines.map((line, i) => this.renderLyricLine(line, i))}
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Autoscroller />
+      <h1>{title}</h1>
+      {lyricLines.map((line, i) => renderLyricLine(line, i))}
+    </div>
+  )
 }
-
-export default SongViewer
