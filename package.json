@@ -18,7 +18,7 @@
     "react": "^16.9.0",
     "react-bootstrap": "^0.32.1",
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
-    "react-dom": "^16.9.0",
+    "react-dom": "^16.10.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "serve": "^11.2.0",
