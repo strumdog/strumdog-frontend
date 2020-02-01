@@ -20,7 +20,7 @@
     "react-chord-parser": "git+https://github.com/paulmelnikow/react-chord-parser.git#113afcead9a3cc43e35a4cad926d3cbe28d305c8",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^3.3.1",
     "serve": "^11.2.0",
     "styled-components": "^4.3.2",
     "typescript": "^3.6.2"
